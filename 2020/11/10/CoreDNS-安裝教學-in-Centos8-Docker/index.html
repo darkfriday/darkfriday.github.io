@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-tw,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+
+  <meta name="description" content="&amp;#x2693;CoreDNS 安裝教學 in Centos8(&amp;#x1f433;Docker)tags: coreDNS docker centos el8安裝Docker step 1 Add docker repo 1$ sudo dnf config-manager --add-repo&#x3D;https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoreDNS 安裝教學 in Centos8">
+<meta property="og:url" content="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/index.html">
+<meta property="og:site_name" content="Darkfriday&#39;s Blog">
+<meta property="og:description" content="&amp;#x2693;CoreDNS 安裝教學 in Centos8(&amp;#x1f433;Docker)tags: coreDNS docker centos el8安裝Docker step 1 Add docker repo 1$ sudo dnf config-manager --add-repo&#x3D;https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-11-10T06:09:51.764Z">
+<meta property="article:modified_time" content="2020-11-10T06:14:14.804Z">
+<meta property="article:author" content="Nap_Huang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>CoreDNS 安裝教學 in Centos8 | Darkfriday's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Darkfriday's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#x2693-CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-x1f433-Docker"><span class="nav-number">1.</span> <span class="nav-text">&amp;#x2693;CoreDNS 安裝教學 in Centos8(&amp;#x1f433;Docker)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-coreDNS-docker-centos-el8"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">tags: coreDNS docker centos el8</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9DDocker"><span class="nav-number">1.1.</span> <span class="nav-text">安裝Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9DCoreDNS"><span class="nav-number">1.2.</span> <span class="nav-text">安裝CoreDNS</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nap_Huang</p>
+  <div class="site-description" itemprop="description">Sharing about tech & sport etc..</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nap_Huang">
+      <meta itemprop="description" content="Sharing about tech & sport etc..">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Darkfriday's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CoreDNS 安裝教學 in Centos8
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-11-10 14:09:51 / Modified: 14:14:14" itemprop="dateCreated datePublished" datetime="2020-11-10T14:09:51+08:00">2020-11-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker"><a href="#x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker" class="headerlink" title="&#x2693;CoreDNS 安裝教學 in Centos8(&#x1f433;Docker)"></a><span class="github-emoji" alias="anchor" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2693.png?v8">&#x2693;</span>CoreDNS 安裝教學 in Centos8(<span class="github-emoji" alias="whale" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png?v8">&#x1f433;</span>Docker)</h1><h6 id="tags-coreDNS-docker-centos-el8"><a href="#tags-coreDNS-docker-centos-el8" class="headerlink" title="tags: coreDNS docker centos el8"></a>tags: <code>coreDNS</code> <code>docker</code> <code>centos</code> <code>el8</code></h6><h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><ul>
+<li><p><code>step 1</code> Add docker repo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> Installing docker-ce 相關依賴套件</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox">  buildah</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox">  podman</p>
+</li>
+<li><p><input disabled="" type="checkbox">  containerd.io &gt; 1.2.0-3.el7</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>step 2.5</strong> Manual Installing containerd.io</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">版本號 1.2.13-3.2 可更換最新的 </span><br><span class="line">$ sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>step 3</code> Installing docker-ce</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install docker-ce</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>step 4</code> 關閉防火牆(會造成docker內部橋接網路不通)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 5</code> Start and enable the docker daemon</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">設定為daemon啟動</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> --now docker</span><br><span class="line"></span><br><span class="line">檢查是否啟動</span><br><span class="line">$ sudo systemctl is-active docker</span><br><span class="line"></span><br><span class="line">檢查是否自動啟動</span><br><span class="line">$ sudo systemctl is-enabled docker</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 6</code> Installing docker-compose（手動方式）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">下載可執行檔案 1.27.0-rc3 可更換最新的</span><br><span class="line">$ curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.27.0-rc3/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o docker-compose</span><br><span class="line">加可執行and傳到/usr/<span class="built_in">local</span>/bin底下</span><br><span class="line">$ sudo mv docker-compose /usr/<span class="built_in">local</span>/bin &amp;&amp; sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>:::info<br>==番外== testing docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run --rm --name=linuxconfig-test -p 80:80 httpd </span><br><span class="line">如果成功用瀏覽器在自己的ip打開 會看到it<span class="string">&#x27;s work!</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi httpd</span><br><span class="line">刪除測試用httpd</span><br></pre></td></tr></table></figure>
+<p>:::</p>
+</li>
+</ul>
+<h2 id="安裝CoreDNS"><a href="#安裝CoreDNS" class="headerlink" title="安裝CoreDNS"></a>安裝CoreDNS</h2><ul>
+<li><p><code>step 1</code> dockerhub 上抓coredn的映像檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull coredns/coredns</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> config coredns </p>
+</li>
+<li><p>[x]docker-compose.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p docker/coredns/config &amp;&amp; <span class="built_in">cd</span> docker/coredns &amp;&amp; vim docker-compose.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">coredns:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">coredns/coredns:latest</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">coredns</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53/udp&#x27;</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53/udp&#x27;</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;$PWD/config/:/etc/coredns/&#x27;</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;-conf&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;/etc/coredns/Corefile&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>[x]Corefile</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/Corefile</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.:<span class="number">53</span> &#123;</span><br><span class="line">    forward . <span class="number">8.8</span>.<span class="number">8.8</span>:<span class="number">53</span></span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mis &#123;</span><br><span class="line">    <span class="keyword">file</span> /etc/coredns/mis</span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>[x]mis</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/mis</span><br></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$TTL</span> <span class="number">10</span></span><br><span class="line">@     <span class="keyword">IN</span>  <span class="keyword">SOA</span>     ns1.service. root.ns.service. (</span><br><span class="line">            <span class="number">2</span>   <span class="comment">;serial</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; refresh</span></span><br><span class="line">            <span class="number">1800</span> <span class="comment">; retry</span></span><br><span class="line">            <span class="number">10</span>  <span class="comment">; expire</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; minimum</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">;name servers</span></span><br><span class="line">@       <span class="keyword">IN</span>      <span class="keyword">NS</span>      ns1.service.</span><br><span class="line">ns1.service.    <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.10.246</span></span><br><span class="line">vcsa   <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.200</span></span><br><span class="line">esxi201 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.201</span></span><br><span class="line">esxi202 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.202</span></span><br><span class="line">esxi203 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.203</span></span><br><span class="line">esxi204 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.204</span></span><br><span class="line">esxi205 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.205</span></span><br><span class="line">esxi206 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.206</span></span><br><span class="line">esxi207 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.207</span></span><br><span class="line">esxi208 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.208</span></span><br><span class="line">esxi209 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.209</span></span><br><span class="line">esxi210 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.9.210</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 3</code> Run docker-compose </p>
+</li>
+</ul>
+<p>enable</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>restart</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose restart coredns</span><br><span class="line">or</span><br><span class="line">$ sudo docker restart coredns</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/10/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" rel="next" title="配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全">
+                  配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nap_Huang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
