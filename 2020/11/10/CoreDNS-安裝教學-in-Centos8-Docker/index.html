@@ -32,7 +32,7 @@
 <meta property="og:description" content="&amp;#x2693;CoreDNS 安裝教學 in Centos8(&amp;#x1f433;Docker)  tags: coreDNS docker centos el8安裝Docker step 1 Add docker repo 1$ sudo dnf config-manager --add-repo&#x3D;https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-c">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-10T06:09:51.764Z">
-<meta property="article:modified_time" content="2020-11-10T06:27:07.167Z">
+<meta property="article:modified_time" content="2020-11-10T06:54:42.189Z">
 <meta property="article:author" content="Nap_Huang">
 <meta name="twitter:card" content="summary">
 
@@ -231,7 +231,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-11-10 14:09:51 / Modified: 14:27:07" itemprop="dateCreated datePublished" datetime="2020-11-10T14:09:51+08:00">2020-11-10</time>
+      <time title="Created: 2020-11-10 14:09:51 / Modified: 14:54:42" itemprop="dateCreated datePublished" datetime="2020-11-10T14:09:51+08:00">2020-11-10</time>
     </span>
 
   
@@ -279,10 +279,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull coredns/coredns</span><br></pre></td></tr></table></figure></li>
 <li><p><code>step 2</code> config coredns </p>
 </li>
-<li><p>[x]docker-compose.yml</p>
+<li><p><input checked="" disabled="" type="checkbox">  docker-compose.yml</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p docker/coredns/config &amp;&amp; <span class="built_in">cd</span> docker/coredns &amp;&amp; vim docker-compose.yml</span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">coredns:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">coredns/coredns:latest</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">coredns</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53/udp&#x27;</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53/udp&#x27;</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;$PWD/config/:/etc/coredns/&#x27;</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;-conf&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;/etc/coredns/Corefile&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>[x]Corefile</p>
+<li><p><input checked="" disabled="" type="checkbox">  Corefile</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/Corefile</span><br></pre></td></tr></table></figure>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.:<span class="number">53</span> &#123;</span><br><span class="line">    forward . <span class="number">8.8</span>.<span class="number">8.8</span>:<span class="number">53</span></span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mis &#123;</span><br><span class="line">    <span class="keyword">file</span> /etc/coredns/mis</span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>[x]mis</p>
