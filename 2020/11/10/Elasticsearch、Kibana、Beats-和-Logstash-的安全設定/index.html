@@ -24,15 +24,15 @@
     var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
-  <meta name="description" content="&amp;#x1f510;配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全 0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting,">
+  <meta name="description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting, machine learning, and">
 <meta property="og:type" content="article">
-<meta property="og:title" content="配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全">
+<meta property="og:title" content="Elasticsearch、Kibana、Beats 和 Logstash 的安全設定">
 <meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/index.html">
 <meta property="og:site_name" content="Darkfriday&#39;s Blog">
-<meta property="og:description" content="&amp;#x1f510;配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全 0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting,">
+<meta property="og:description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting, machine learning, and">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-10T06:10:30.376Z">
-<meta property="article:modified_time" content="2020-11-10T06:54:44.280Z">
+<meta property="article:modified_time" content="2020-11-10T07:18:11.231Z">
 <meta property="article:author" content="Nap_Huang">
 <meta name="twitter:card" content="summary">
 
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全 | Darkfriday's Blog</title>
+  <title>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 | Darkfriday's Blog</title>
   
 
 
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全
+          Elasticsearch、Kibana、Beats 和 Logstash 的安全設定
         </h1>
 
         <div class="post-meta-container">
@@ -231,7 +231,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-11-10 14:10:30 / Modified: 14:54:44" itemprop="dateCreated datePublished" datetime="2020-11-10T14:10:30+08:00">2020-11-10</time>
+      <time title="Created: 2020-11-10 14:10:30 / Modified: 15:18:11" itemprop="dateCreated datePublished" datetime="2020-11-10T14:10:30+08:00">2020-11-10</time>
     </span>
 
   
@@ -244,7 +244,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>配置 SSL、TLS 以及 HTTPS 來確保 Elasticsearch、Kibana、Beats 和 Logstash 的安全</p>
+        <p><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</p>
 <h3 id="0-了解ELK-Xpack-amp-安全模式"><a href="#0-了解ELK-Xpack-amp-安全模式" class="headerlink" title="0. 了解ELK_Xpack &amp; 安全模式"></a>0. 了解ELK_Xpack &amp; 安全模式</h3><ul>
 <li>Xpack<blockquote>
 <p>X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting, machine learning, and many other capabilities.</p>
@@ -303,7 +303,7 @@
 <h3 id="4-設定-Kibana"><a href="#4-設定-Kibana" class="headerlink" title="4. 設定 Kibana"></a>4. 設定 Kibana</h3><p>Configure passwords on client-side(keystore)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/kibana/bin/kibana-keystore create</span><br><span class="line">/usr/share/kibana/bin/kibana-keystore add elasticsearch.username</span><br><span class="line">/usr/share/kibana/bin/kibana-keystore add elasticsearch.password</span><br></pre></td></tr></table></figure>
 <p>kibana.yml</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.port:</span> <span class="number">5601</span></span><br><span class="line"><span class="attr">server.host:</span> <span class="string">&quot;0.0.0.0&quot;</span></span><br><span class="line"><span class="attr">server.name:</span> <span class="string">&quot;JP-Kibana.246:5601&quot;</span></span><br><span class="line"><span class="attr">elasticsearch.hosts:</span> [<span class="string">&quot;https://10.20.9.247:9200&quot;</span>]</span><br><span class="line"><span class="attr">xpack.security.session.idleTimeout:</span> <span class="string">&quot;30m&quot;</span></span><br><span class="line"><span class="attr">xpack.security.session.lifespan:</span> <span class="string">&quot;8h&quot;</span></span><br><span class="line"><span class="attr">xpack.security.encryptionKey:</span> <span class="string">&quot;something_at_least_32_characters&quot;</span></span><br><span class="line"><span class="attr">xpack.encryptedSavedObjects.encryptionKey:</span> <span class="string">&quot;something_at_least_32_characters&quot;</span></span><br><span class="line"><span class="comment">#↓下面是kibana當server 瀏覽器client的憑證</span></span><br><span class="line"><span class="attr">server.ssl.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server.ssl.certificate:</span> <span class="string">&quot;/etc/kibana/cukgad.mis/cukgad.mis.crt&quot;</span></span><br><span class="line"><span class="attr">server.ssl.key:</span> <span class="string">&quot;/etc/kibana/cukgad.mis/cukgad.mis.key&quot;</span></span><br><span class="line"><span class="comment">#↓下面是kibana當client 到ES時需要的公鑰</span></span><br><span class="line"><span class="attr">elasticsearch.ssl.certificateAuthorities:</span> <span class="string">&quot;/etc/kibana/elasticsearch-ca.pem&quot;</span></span><br><span class="line"><span class="attr">elasticsearch.ssl.verificationMode:</span> <span class="string">full</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.port:</span> <span class="number">5601</span></span><br><span class="line"><span class="attr">server.host:</span> <span class="string">&quot;0.0.0.0&quot;</span></span><br><span class="line"><span class="attr">server.name:</span> <span class="string">&quot;JP-Kibana.246:5601&quot;</span></span><br><span class="line"><span class="attr">elasticsearch.hosts:</span> [<span class="string">&quot;https://192.168.9.247:9200&quot;</span>]</span><br><span class="line"><span class="attr">xpack.security.session.idleTimeout:</span> <span class="string">&quot;30m&quot;</span></span><br><span class="line"><span class="attr">xpack.security.session.lifespan:</span> <span class="string">&quot;8h&quot;</span></span><br><span class="line"><span class="attr">xpack.security.encryptionKey:</span> <span class="string">&quot;something_at_least_32_characters&quot;</span></span><br><span class="line"><span class="attr">xpack.encryptedSavedObjects.encryptionKey:</span> <span class="string">&quot;something_at_least_32_characters&quot;</span></span><br><span class="line"><span class="comment">#↓下面是kibana當server 瀏覽器client的憑證</span></span><br><span class="line"><span class="attr">server.ssl.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server.ssl.certificate:</span> <span class="string">&quot;/etc/kibana/cukgad.mis/cukgad.mis.crt&quot;</span></span><br><span class="line"><span class="attr">server.ssl.key:</span> <span class="string">&quot;/etc/kibana/cukgad.mis/cukgad.mis.key&quot;</span></span><br><span class="line"><span class="comment">#↓下面是kibana當client 到ES時需要的公鑰</span></span><br><span class="line"><span class="attr">elasticsearch.ssl.certificateAuthorities:</span> <span class="string">&quot;/etc/kibana/elasticsearch-ca.pem&quot;</span></span><br><span class="line"><span class="attr">elasticsearch.ssl.verificationMode:</span> <span class="string">full</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-設定-Logstash"><a href="#5-設定-Logstash" class="headerlink" title="5. 設定 Logstash"></a>5. 設定 Logstash</h3><h4 id="Configure-passwords-on-client-side-keystore"><a href="#Configure-passwords-on-client-side-keystore" class="headerlink" title="Configure passwords on client-side(keystore)"></a><code>Configure passwords on client-side(keystore)</code></h4><ul>
 <li><p>logstash-keystore</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#比較不同的是logstash是java寫的 所以要用比較有點不同的方式加keystore</span></span><br><span class="line">$ <span class="built_in">set</span> +o <span class="built_in">history</span></span><br><span class="line">$ <span class="built_in">export</span> LOGSTASH_KEYSTORE_PASS=!QAZxsw2</span><br><span class="line">$ <span class="built_in">set</span> -o <span class="built_in">history</span></span><br><span class="line">$ sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash create</span><br><span class="line">$ sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add LS_USER</span><br><span class="line">$ sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add LS_PWD</span><br><span class="line">$ sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add LW_USER</span><br><span class="line">$ sodu -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add LW_PWD</span><br></pre></td></tr></table></figure></li>
