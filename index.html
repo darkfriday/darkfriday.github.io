@@ -126,6 +126,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
@@ -188,15 +193,18 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/darkfriday" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/darkfriday" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
@@ -257,17 +265,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2020-11-10 16:23:09 / Modified: 16:58:37" itemprop="dateCreated datePublished" datetime="2020-11-10T16:23:09+08:00">2020-11-10</time>
+      <time title="Created: 2020-11-10 16:23:09" itemprop="dateCreated datePublished" datetime="2020-11-10T16:23:09+08:00">2020-11-10</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-11 09:40:24" itemprop="dateModified" datetime="2020-11-11T09:40:24+08:00">2020-11-11</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/tech/" itemprop="url" rel="index"><span itemprop="name">tech</span></a>
+          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
         </span>
     </span>
 
@@ -281,8 +295,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8"></a><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8</h1><p>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></p>
-<h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
+          <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8 "></a><center><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8 </center></h1><h6 id="tags-dnf-beats-centos-el8"><a href="#tags-dnf-beats-centos-el8" class="headerlink" title="tags: dnf, beats, centos , el8"></a>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></h6><h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
 
 <h3 id="Create-repo-in-etc-yum-repos-d"><a href="#Create-repo-in-etc-yum-repos-d" class="headerlink" title="Create .repo in /etc/yum.repos.d/"></a>Create <code>.repo</code> in <code>/etc/yum.repos.d/</code></h3><ul>
 <li><p>elastic.repo</p>
@@ -301,6 +314,134 @@
 </li>
 </ul>
 <p>Plus: <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/auditbeat/current/running-on-docker.html">Run auditbeat on Docker</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nap_Huang">
+      <meta itemprop="description" content="Sharing about tech & sport etc..">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Darkfriday's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/" class="post-title-link" itemprop="url">CoreDNS 安裝教學 in Centos8</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-11-10 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-10T00:00:00+08:00">2020-11-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-11 09:41:20" itemprop="dateModified" datetime="2020-11-11T09:41:20+08:00">2020-11-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker"><a href="#x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker" class="headerlink" title="&#x2693;CoreDNS 安裝教學 in Centos8(&#x1f433;Docker)"></a><center><span class="github-emoji" alias="anchor" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2693.png?v8">&#x2693;</span>CoreDNS 安裝教學 in Centos8(<span class="github-emoji" alias="whale" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png?v8">&#x1f433;</span>Docker)</center></h1><h6 id="tags-coreDNS-docker-centos-el8"><a href="#tags-coreDNS-docker-centos-el8" class="headerlink" title="tags: coreDNS docker centos el8"></a>tags: <code>coreDNS</code> <code>docker</code> <code>centos</code> <code>el8</code></h6><h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><ul>
+<li><p><code>step 1</code> Add docker repo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> Installing docker-ce 相關依賴套件</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> buildah</li>
+<li><input checked="" disabled="" type="checkbox"> podman</li>
+<li><input disabled="" type="checkbox"> containerd.io &gt; 1.2.0-3.el7<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>step 2.5</strong> Manual Installing containerd.io</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">版本號 1.2.13-3.2 可更換最新的 </span><br><span class="line">$ sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>step 3</code> Installing docker-ce</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install docker-ce</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>step 4</code> 關閉防火牆(會造成docker內部橋接網路不通)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 5</code> Start and enable the docker daemon</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">設定為daemon啟動</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> --now docker</span><br><span class="line"></span><br><span class="line">檢查是否啟動</span><br><span class="line">$ sudo systemctl is-active docker</span><br><span class="line"></span><br><span class="line">檢查是否自動啟動</span><br><span class="line">$ sudo systemctl is-enabled docker</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 6</code> Installing docker-compose（手動方式）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">下載可執行檔案 1.27.0-rc3 可更換最新的</span><br><span class="line">$ curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.27.0-rc3/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o docker-compose</span><br><span class="line">加可執行and傳到/usr/<span class="built_in">local</span>/bin底下</span><br><span class="line">$ sudo mv docker-compose /usr/<span class="built_in">local</span>/bin &amp;&amp; sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>:::info<br>==番外== testing docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run --rm --name=linuxconfig-test -p 80:80 httpd </span><br><span class="line">如果成功用瀏覽器在自己的ip打開 會看到it<span class="string">&#x27;s work!</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi httpd</span><br><span class="line">刪除測試用httpd</span><br></pre></td></tr></table></figure>
+<p>:::</p>
+</li>
+</ul>
+<h2 id="安裝CoreDNS"><a href="#安裝CoreDNS" class="headerlink" title="安裝CoreDNS"></a>安裝CoreDNS</h2><ul>
+<li><p><code>step 1</code> dockerhub 上抓coredn的映像檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull coredns/coredns</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> config coredns </p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> docker-compose.yml<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p docker/coredns/config &amp;&amp; <span class="built_in">cd</span> docker/coredns &amp;&amp; vim docker-compose.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">coredns:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">coredns/coredns:latest</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">coredns</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53/udp&#x27;</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53/udp&#x27;</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;$PWD/config/:/etc/coredns/&#x27;</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;-conf&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;/etc/coredns/Corefile&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><input checked="" disabled="" type="checkbox"> Corefile<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/Corefile</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.:<span class="number">53</span> &#123;</span><br><span class="line">    forward . <span class="number">8.8</span>.<span class="number">8.8</span>:<span class="number">53</span></span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mis &#123;</span><br><span class="line">    <span class="keyword">file</span> /etc/coredns/mis</span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><input checked="" disabled="" type="checkbox"> mis<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/mis</span><br></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$TTL</span> <span class="number">10</span></span><br><span class="line">@     <span class="keyword">IN</span>  <span class="keyword">SOA</span>     ns1.service. root.ns.service. (</span><br><span class="line">            <span class="number">2</span>   <span class="comment">;serial</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; refresh</span></span><br><span class="line">            <span class="number">1800</span> <span class="comment">; retry</span></span><br><span class="line">            <span class="number">10</span>  <span class="comment">; expire</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; minimum</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">;name servers</span></span><br><span class="line">@       <span class="keyword">IN</span>      <span class="keyword">NS</span>      ns1.service.</span><br><span class="line">ns1.service.    <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.10.246</span></span><br><span class="line">vcsa   <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.200</span></span><br><span class="line">esxi201 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.201</span></span><br><span class="line">esxi202 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.202</span></span><br><span class="line">esxi203 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.203</span></span><br><span class="line">esxi204 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.204</span></span><br><span class="line">esxi205 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.205</span></span><br><span class="line">esxi206 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.206</span></span><br><span class="line">esxi207 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.207</span></span><br><span class="line">esxi208 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.208</span></span><br><span class="line">esxi209 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.209</span></span><br><span class="line">esxi210 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.210</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>step 3</code> Run docker-compose </p>
+</li>
+</ul>
+<p>enable</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>restart</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose restart coredns</span><br><span class="line">or</span><br><span class="line">$ sudo docker restart coredns</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -351,9 +492,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2020-11-10 14:10:30 / Modified: 15:18:11" itemprop="dateCreated datePublished" datetime="2020-11-10T14:10:30+08:00">2020-11-10</time>
+      <time title="Created: 2020-11-10 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-10T00:00:00+08:00">2020-11-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-11 09:40:31" itemprop="dateModified" datetime="2020-11-11T09:40:31+08:00">2020-11-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
+        </span>
     </span>
 
   
@@ -366,8 +522,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</p>
-<h3 id="0-了解ELK-Xpack-amp-安全模式"><a href="#0-了解ELK-Xpack-amp-安全模式" class="headerlink" title="0. 了解ELK_Xpack &amp; 安全模式"></a>0. 了解ELK_Xpack &amp; 安全模式</h3><ul>
+          <h1 id="x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定"><a href="#x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定" class="headerlink" title="&#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定"></a><center><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</center></h1><h6 id="tags-ELK-beats-security-SSL-TLS"><a href="#tags-ELK-beats-security-SSL-TLS" class="headerlink" title="tags: ELK, beats, security , SSL , TLS"></a>tags: <code>ELK</code>, <code>beats</code>, <code>security</code> , <code>SSL</code> , <code>TLS</code></h6><h3 id="0-了解ELK-Xpack-amp-安全模式"><a href="#0-了解ELK-Xpack-amp-安全模式" class="headerlink" title="0. 了解ELK_Xpack &amp; 安全模式"></a>0. 了解ELK_Xpack &amp; 安全模式</h3><ul>
 <li>Xpack<blockquote>
 <p>X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting, machine learning, and many other capabilities.</p>
 </blockquote>
@@ -464,120 +619,6 @@
 
 
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nap_Huang">
-      <meta itemprop="description" content="Sharing about tech & sport etc..">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Darkfriday's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/" class="post-title-link" itemprop="url">CoreDNS 安裝教學 in Centos8</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-11-10 14:09:51 / Modified: 15:18:12" itemprop="dateCreated datePublished" datetime="2020-11-10T14:09:51+08:00">2020-11-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><span class="github-emoji" alias="anchor" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2693.png?v8">&#x2693;</span>CoreDNS 安裝教學 in Centos8(<span class="github-emoji" alias="whale" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png?v8">&#x1f433;</span>Docker) </p>
-<h6 id="tags-coreDNS-docker-centos-el8"><a href="#tags-coreDNS-docker-centos-el8" class="headerlink" title="tags: coreDNS docker centos el8"></a>tags: <code>coreDNS</code> <code>docker</code> <code>centos</code> <code>el8</code></h6><h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><ul>
-<li><p><code>step 1</code> Add docker repo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
-<li><p><code>step 2</code> Installing docker-ce 相關依賴套件</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> buildah</li>
-<li><input checked="" disabled="" type="checkbox"> podman</li>
-<li><input disabled="" type="checkbox"> containerd.io &gt; 1.2.0-3.el7<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>step 2.5</strong> Manual Installing containerd.io</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">版本號 1.2.13-3.2 可更換最新的 </span><br><span class="line">$ sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>step 3</code> Installing docker-ce</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install docker-ce</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>step 4</code> 關閉防火牆(會造成docker內部橋接網路不通)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure></li>
-<li><p><code>step 5</code> Start and enable the docker daemon</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">設定為daemon啟動</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> --now docker</span><br><span class="line"></span><br><span class="line">檢查是否啟動</span><br><span class="line">$ sudo systemctl is-active docker</span><br><span class="line"></span><br><span class="line">檢查是否自動啟動</span><br><span class="line">$ sudo systemctl is-enabled docker</span><br></pre></td></tr></table></figure></li>
-<li><p><code>step 6</code> Installing docker-compose（手動方式）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">下載可執行檔案 1.27.0-rc3 可更換最新的</span><br><span class="line">$ curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.27.0-rc3/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o docker-compose</span><br><span class="line">加可執行and傳到/usr/<span class="built_in">local</span>/bin底下</span><br><span class="line">$ sudo mv docker-compose /usr/<span class="built_in">local</span>/bin &amp;&amp; sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
-<p>:::info<br>==番外== testing docker</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run --rm --name=linuxconfig-test -p 80:80 httpd </span><br><span class="line">如果成功用瀏覽器在自己的ip打開 會看到it<span class="string">&#x27;s work!</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi httpd</span><br><span class="line">刪除測試用httpd</span><br></pre></td></tr></table></figure>
-<p>:::</p>
-</li>
-</ul>
-<h2 id="安裝CoreDNS"><a href="#安裝CoreDNS" class="headerlink" title="安裝CoreDNS"></a>安裝CoreDNS</h2><ul>
-<li><p><code>step 1</code> dockerhub 上抓coredn的映像檔</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull coredns/coredns</span><br></pre></td></tr></table></figure></li>
-<li><p><code>step 2</code> config coredns </p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> docker-compose.yml<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p docker/coredns/config &amp;&amp; <span class="built_in">cd</span> docker/coredns &amp;&amp; vim docker-compose.yml</span><br></pre></td></tr></table></figure>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">coredns:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">coredns/coredns:latest</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">coredns</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53/udp&#x27;</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53/udp&#x27;</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;$PWD/config/:/etc/coredns/&#x27;</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;-conf&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;/etc/coredns/Corefile&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><input checked="" disabled="" type="checkbox"> Corefile<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/Corefile</span><br></pre></td></tr></table></figure>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.:<span class="number">53</span> &#123;</span><br><span class="line">    forward . <span class="number">8.8</span>.<span class="number">8.8</span>:<span class="number">53</span></span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mis &#123;</span><br><span class="line">    <span class="keyword">file</span> /etc/coredns/mis</span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><input checked="" disabled="" type="checkbox"> mis<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim config/mis</span><br></pre></td></tr></table></figure>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$TTL</span> <span class="number">10</span></span><br><span class="line">@     <span class="keyword">IN</span>  <span class="keyword">SOA</span>     ns1.service. root.ns.service. (</span><br><span class="line">            <span class="number">2</span>   <span class="comment">;serial</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; refresh</span></span><br><span class="line">            <span class="number">1800</span> <span class="comment">; retry</span></span><br><span class="line">            <span class="number">10</span>  <span class="comment">; expire</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; minimum</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">;name servers</span></span><br><span class="line">@       <span class="keyword">IN</span>      <span class="keyword">NS</span>      ns1.service.</span><br><span class="line">ns1.service.    <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.10.246</span></span><br><span class="line">vcsa   <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.200</span></span><br><span class="line">esxi201 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.201</span></span><br><span class="line">esxi202 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.202</span></span><br><span class="line">esxi203 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.203</span></span><br><span class="line">esxi204 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.204</span></span><br><span class="line">esxi205 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.205</span></span><br><span class="line">esxi206 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.206</span></span><br><span class="line">esxi207 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.207</span></span><br><span class="line">esxi208 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.208</span></span><br><span class="line">esxi209 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.209</span></span><br><span class="line">esxi210 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.210</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><code>step 3</code> Run docker-compose </p>
-</li>
-</ul>
-<p>enable</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>restart</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose restart coredns</span><br><span class="line">or</span><br><span class="line">$ sudo docker restart coredns</span><br></pre></td></tr></table></figure>
 
       
     </div>

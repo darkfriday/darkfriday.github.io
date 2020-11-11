@@ -24,20 +24,20 @@
     var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
-  <meta name="description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8tags: dnf, beats, centos , el8 Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
+  <meta name="description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8 tags: dnf, beats, centos , el8Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Auditbeat_install@CentOS8">
 <meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Auditbeat-install/index.html">
 <meta property="og:site_name" content="Darkfriday&#39;s Blog">
-<meta property="og:description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8tags: dnf, beats, centos , el8 Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
+<meta property="og:description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8 tags: dnf, beats, centos , el8Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-10T08:23:09.000Z">
-<meta property="article:modified_time" content="2020-11-10T08:58:37.004Z">
+<meta property="article:modified_time" content="2020-11-11T01:40:24.145Z">
 <meta property="article:author" content="Nap_Huang">
-<meta property="article:tag" content="dnf">
-<meta property="article:tag" content="beats">
-<meta property="article:tag" content="centos">
-<meta property="article:tag" content="el8">
+<meta property="article:tag" content="Dnf">
+<meta property="article:tag" content="Beats">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="EL8">
 <meta name="twitter:card" content="summary">
 
 
@@ -132,6 +132,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
@@ -172,7 +177,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#x1f4e6-Auditbeat-install-CentOS8"><span class="nav-number">1.</span> <span class="nav-text">&amp;#x1f4e6;Auditbeat_install@CentOS8</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-elastic-repo-GPG-key"><span class="nav-number">1.0.1.</span> <span class="nav-text">Download elastic repo GPG key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-repo-in-etc-yum-repos-d"><span class="nav-number">1.0.2.</span> <span class="nav-text">Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configure-automatiically-during-boot"><span class="nav-number">1.0.3.</span> <span class="nav-text">Configure automatiically during boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify-output-IP-address-amp-configure-mem-queue-size"><span class="nav-number">1.0.4.</span> <span class="nav-text">Modify output IP address &amp; configure mem queue size</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#x1f4e6-Auditbeat-install-CentOS8"><span class="nav-number">1.</span> <span class="nav-text">&amp;#x1f4e6;Auditbeat_install@CentOS8 </span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-dnf-beats-centos-el8"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">tags: dnf, beats, centos , el8</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-elastic-repo-GPG-key"><span class="nav-number">1.0.1.</span> <span class="nav-text">Download elastic repo GPG key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-repo-in-etc-yum-repos-d"><span class="nav-number">1.0.2.</span> <span class="nav-text">Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configure-automatiically-during-boot"><span class="nav-number">1.0.3.</span> <span class="nav-text">Configure automatiically during boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify-output-IP-address-amp-configure-mem-queue-size"><span class="nav-number">1.0.4.</span> <span class="nav-text">Modify output IP address &amp; configure mem queue size</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -195,15 +200,18 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/darkfriday" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/darkfriday" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
@@ -264,17 +272,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2020-11-10 16:23:09 / Modified: 16:58:37" itemprop="dateCreated datePublished" datetime="2020-11-10T16:23:09+08:00">2020-11-10</time>
+      <time title="Created: 2020-11-10 16:23:09" itemprop="dateCreated datePublished" datetime="2020-11-10T16:23:09+08:00">2020-11-10</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-11 09:40:24" itemprop="dateModified" datetime="2020-11-11T09:40:24+08:00">2020-11-11</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/tech/" itemprop="url" rel="index"><span itemprop="name">tech</span></a>
+          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
         </span>
     </span>
 
@@ -288,8 +302,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8"></a><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8</h1><p>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></p>
-<h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
+        <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8 "></a><center><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8 </center></h1><h6 id="tags-dnf-beats-centos-el8"><a href="#tags-dnf-beats-centos-el8" class="headerlink" title="tags: dnf, beats, centos , el8"></a>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></h6><h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
 
 <h3 id="Create-repo-in-etc-yum-repos-d"><a href="#Create-repo-in-etc-yum-repos-d" class="headerlink" title="Create .repo in /etc/yum.repos.d/"></a>Create <code>.repo</code> in <code>/etc/yum.repos.d/</code></h3><ul>
 <li><p>elastic.repo</p>
@@ -317,18 +330,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/dnf/" rel="tag"># dnf</a>
-              <a href="/tags/beats/" rel="tag"># beats</a>
-              <a href="/tags/centos/" rel="tag"># centos</a>
-              <a href="/tags/el8/" rel="tag"># el8</a>
+              <a href="/tags/Dnf/" rel="tag"># Dnf</a>
+              <a href="/tags/Beats/" rel="tag"># Beats</a>
+              <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+              <a href="/tags/EL8/" rel="tag"># EL8</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" rel="prev" title="Elasticsearch、Kibana、Beats 和 Logstash 的安全設定">
-                  <i class="fa fa-chevron-left"></i> Elasticsearch、Kibana、Beats 和 Logstash 的安全設定
+                <a href="/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/" rel="prev" title="CoreDNS 安裝教學 in Centos8">
+                  <i class="fa fa-chevron-left"></i> CoreDNS 安裝教學 in Centos8
                 </a>
             </div>
             <div class="post-nav-item">
