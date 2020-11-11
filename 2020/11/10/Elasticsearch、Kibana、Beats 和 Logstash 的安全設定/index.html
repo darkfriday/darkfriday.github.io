@@ -32,10 +32,10 @@
 <meta property="og:description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定tags: ELK, beats, security , SSL , TLS0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitor">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-11-11T01:40:31.539Z">
+<meta property="article:modified_time" content="2020-11-11T14:51:34.579Z">
 <meta property="article:author" content="Nap_Huang">
-<meta property="article:tag" content="ELK">
 <meta property="article:tag" content="Beats">
+<meta property="article:tag" content="ELK">
 <meta property="article:tag" content="Security">
 <meta property="article:tag" content="SSL">
 <meta property="article:tag" content="TLS">
@@ -197,12 +197,16 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -284,7 +288,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 09:40:31" itemprop="dateModified" datetime="2020-11-11T09:40:31+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 22:51:34" itemprop="dateModified" datetime="2020-11-11T22:51:34+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -331,9 +335,8 @@
 <p>ELK是有收費版本的 而Xpack部分功能只有付費才開放<br>請參考：<a target="_blank" rel="noopener" href="https://www.elastic.co/subscriptions">X-Pack features</a></p>
 <ul>
 <li>ELK叢集安全模式<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">＃ES設定中加入</span> <span class="string">就是開啟xpack</span></span><br><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-:::info<br>重要觀念:<br>誰對誰 誰是server端 誰是client要分清楚<br>一個服務可能又是server又是client<br>:::</li>
-</ul>
-<h3 id="1-使用憑證產生工具為每個es-node-產生憑證"><a href="#1-使用憑證產生工具為每個es-node-產生憑證" class="headerlink" title="1. 使用憑證產生工具為每個es_node 產生憑證"></a>1. 使用憑證產生工具為每個es_node 產生憑證</h3><ul>
+:::info<br>重要觀念:<br>誰對誰 誰是server端 誰是client要分清楚<br>一個服務可能又是server又是client<br>:::<a id="more"></a>
+<h3 id="1-使用憑證產生工具為每個es-node-產生憑證"><a href="#1-使用憑證產生工具為每個es-node-產生憑證" class="headerlink" title="1. 使用憑證產生工具為每個es_node 產生憑證"></a>1. 使用憑證產生工具為每個es_node 產生憑證</h3></li>
 <li>利用工具產生憑證（也可以用openssl指令）<br>:::spoiler<br>openssl ex:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl ecparam -out ELK.key -name prime256v1 -genkey</span><br><span class="line">openssl req -new -sha256 -key ELK.key -out ELK.csr</span><br><span class="line">openssl x509 -req -sha256 -days 3650 -<span class="keyword">in</span> ELK.csr -signkey ELK.key -out ELK.crt</span><br><span class="line">openssl pkcs12 -<span class="built_in">export</span> -out ELK.ca.p12 -inkey ELK.key -<span class="keyword">in</span> ELK.crt</span><br></pre></td></tr></table></figure>
 :::</li>
 </ul>
@@ -428,8 +431,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ELK/" rel="tag"># ELK</a>
               <a href="/tags/Beats/" rel="tag"># Beats</a>
+              <a href="/tags/ELK/" rel="tag"># ELK</a>
               <a href="/tags/Security/" rel="tag"># Security</a>
               <a href="/tags/SSL/" rel="tag"># SSL</a>
               <a href="/tags/TLS/" rel="tag"># TLS</a>
