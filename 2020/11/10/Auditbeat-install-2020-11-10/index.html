@@ -27,21 +27,18 @@
   <meta name="description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8 tags: dnf, beats, centos , el8Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Auditbeat_install@CentOS8">
-<meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Auditbeat-install/index.html">
+<meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Auditbeat-install-2020-11-10/index.html">
 <meta property="og:site_name" content="Darkfriday&#39;s Blog">
 <meta property="og:description" content="&amp;#x1f4e6;Auditbeat_install@CentOS8 tags: dnf, beats, centos , el8Download elastic repo GPG key1$ sudo rpm --import https:&#x2F;&#x2F;packages.elastic.co&#x2F;GPG-KEY-elasticsearch  Create .repo in &#x2F;etc&#x2F;yum.repos.d&#x2F;">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-10T08:23:09.000Z">
-<meta property="article:modified_time" content="2020-11-11T01:40:24.145Z">
+<meta property="article:modified_time" content="2020-11-11T05:34:01.847Z">
 <meta property="article:author" content="Nap_Huang">
-<meta property="article:tag" content="Dnf">
-<meta property="article:tag" content="Beats">
-<meta property="article:tag" content="CentOS">
-<meta property="article:tag" content="EL8">
+<meta property="article:tag" content="Dnf,Beats,CentOS,EL8">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install/">
+<link rel="canonical" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install-2020-11-10/">
 
 
 <script class="page-configurations">
@@ -200,7 +197,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -249,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install/">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install-2020-11-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -280,7 +277,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 09:40:24" itemprop="dateModified" datetime="2020-11-11T09:40:24+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 13:34:01" itemprop="dateModified" datetime="2020-11-11T13:34:01+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,10 +306,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[elastic-7.x]</span><br><span class="line">name&#x3D;Elastic repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>dnf install auditbeat</p>
-</li>
-</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf install auditbeat</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h3 id="Configure-automatiically-during-boot"><a href="#Configure-automatiically-during-boot" class="headerlink" title="Configure automatiically during boot"></a>Configure automatiically during boot</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> auditbeat</span><br><span class="line">$ sudo systemctl start auditbeat</span><br></pre></td></tr></table></figure>
 <h3 id="Modify-output-IP-address-amp-configure-mem-queue-size"><a href="#Modify-output-IP-address-amp-configure-mem-queue-size" class="headerlink" title="Modify output IP address &amp; configure mem queue size"></a>Modify output IP address &amp; configure mem queue size</h3><p>注意網段<code>.1</code> or <code>.2</code></p>
 <ul>
@@ -330,17 +327,14 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Dnf/" rel="tag"># Dnf</a>
-              <a href="/tags/Beats/" rel="tag"># Beats</a>
-              <a href="/tags/CentOS/" rel="tag"># CentOS</a>
-              <a href="/tags/EL8/" rel="tag"># EL8</a>
+              <a href="/tags/Dnf-Beats-CentOS-EL8/" rel="tag"># Dnf,Beats,CentOS,EL8</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/" rel="prev" title="CoreDNS 安裝教學 in Centos8">
+                <a href="/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/" rel="prev" title="CoreDNS 安裝教學 in Centos8">
                   <i class="fa fa-chevron-left"></i> CoreDNS 安裝教學 in Centos8
                 </a>
             </div>

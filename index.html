@@ -193,7 +193,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -241,7 +241,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install/">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install-2020-11-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -255,7 +255,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/10/Auditbeat-install/" class="post-title-link" itemprop="url">Auditbeat_install@CentOS8</a>
+            <a href="/2020/11/10/Auditbeat-install-2020-11-10/" class="post-title-link" itemprop="url">Auditbeat_install@CentOS8</a>
         </h2>
 
         <div class="post-meta-container">
@@ -273,7 +273,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 09:40:24" itemprop="dateModified" datetime="2020-11-11T09:40:24+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 13:34:01" itemprop="dateModified" datetime="2020-11-11T13:34:01+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -302,10 +302,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[elastic-7.x]</span><br><span class="line">name&#x3D;Elastic repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>dnf install auditbeat</p>
-</li>
-</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf install auditbeat</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h3 id="Configure-automatiically-during-boot"><a href="#Configure-automatiically-during-boot" class="headerlink" title="Configure automatiically during boot"></a>Configure automatiically during boot</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> auditbeat</span><br><span class="line">$ sudo systemctl start auditbeat</span><br></pre></td></tr></table></figure>
 <h3 id="Modify-output-IP-address-amp-configure-mem-queue-size"><a href="#Modify-output-IP-address-amp-configure-mem-queue-size" class="headerlink" title="Modify output IP address &amp; configure mem queue size"></a>Modify output IP address &amp; configure mem queue size</h3><p>注意網段<code>.1</code> or <code>.2</code></p>
 <ul>
@@ -340,7 +340,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -354,7 +354,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/10/CoreDNS-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-in-Centos8-Docker/" class="post-title-link" itemprop="url">CoreDNS 安裝教學 in Centos8</a>
+            <a href="/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/" class="post-title-link" itemprop="url">CoreDNS 安裝教學 in Centos8</a>
         </h2>
 
         <div class="post-meta-container">
@@ -372,7 +372,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 09:41:20" itemprop="dateModified" datetime="2020-11-11T09:41:20+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 12:02:31" itemprop="dateModified" datetime="2020-11-11T12:02:31+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -468,7 +468,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -482,7 +482,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" class="post-title-link" itemprop="url">Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</a>
+            <a href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" class="post-title-link" itemprop="url">Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</a>
         </h2>
 
         <div class="post-meta-container">
