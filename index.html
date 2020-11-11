@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-tw,en,default">
+<html lang="en,zh-TW,default">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -21,7 +21,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Sharing about tech &amp; sport etc..">
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://darkfriday.github.io/index.html">
 <meta property="og:site_name" content="Darkfriday&#39;s Blog">
 <meta property="og:description" content="Sharing about tech &amp; sport etc..">
-<meta property="og:locale" content="zh_TW">
+<meta property="og:locale" content="en_US">
 <meta property="article:author" content="Nap_Huang">
 <meta name="twitter:card" content="summary">
 
@@ -44,7 +44,7 @@
     sidebar: "",
     isHome : true,
     isPost : false,
-    lang   : 'zh-tw'
+    lang   : 'en'
   };
 </script>
 
@@ -230,6 +230,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -247,7 +248,7 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en,zh-TW,default">
     <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Auditbeat-install-2020-11-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -280,7 +281,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 22:51:32" itemprop="dateModified" datetime="2020-11-11T22:51:32+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-12 00:14:38" itemprop="dateModified" datetime="2020-11-12T00:14:38+08:00">2020-11-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -300,7 +301,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>848</span>
+      <span>992</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -318,14 +319,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8 "></a><center><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8 </center></h1><h6 id="tags-dnf-beats-centos-el8"><a href="#tags-dnf-beats-centos-el8" class="headerlink" title="tags: dnf, beats, centos , el8"></a>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></h6><h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
+          <h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8 "></a><center><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8 </center></h1><h6 id="tags-dnf-beats-centos-el8"><a href="#tags-dnf-beats-centos-el8" class="headerlink" title="tags: dnf, beats, centos , el8"></a>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></h6><h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
 
-<h3 id="Create-repo-in-etc-yum-repos-d"><a href="#Create-repo-in-etc-yum-repos-d" class="headerlink" title="Create .repo in /etc/yum.repos.d/"></a>Create <code>.repo</code> in <code>/etc/yum.repos.d/</code></h3><ul>
-<li><p>elastic.repo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[elastic-7.x]</span><br><span class="line">name&#x3D;Elastic repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>dnf install auditbeat</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf install auditbeat</span><br></pre></td></tr></table></figure>
+<h3 id="Create-repo-in-etc-yum-repos-d"><a href="#Create-repo-in-etc-yum-repos-d" class="headerlink" title="Create .repo in /etc/yum.repos.d/"></a>Create <code>.repo</code> in <code>/etc/yum.repos.d/</code></h3><figure class="highlight plain"><figcaption><span>/etc/yum.repos.d/elastic.repo</span></figcaption><table><tr><td class="code"><pre><span class="line">[elastic-7.x]</span><br><span class="line">name&#x3D;Elastic repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/10/Auditbeat-install-2020-11-10/#more" rel="contents">
@@ -358,7 +354,7 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en,zh-TW,default">
     <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -391,7 +387,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 22:51:33" itemprop="dateModified" datetime="2020-11-11T22:51:33+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 23:22:56" itemprop="dateModified" datetime="2020-11-11T23:22:56+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -411,7 +407,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2.4k</span>
+      <span>2.3k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -431,12 +427,17 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker"><a href="#x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker" class="headerlink" title="&#x2693;CoreDNS 安裝教學 in Centos8(&#x1f433;Docker)"></a><center><span class="github-emoji" alias="anchor" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2693.png?v8">&#x2693;</span>CoreDNS 安裝教學 in Centos8(<span class="github-emoji" alias="whale" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png?v8">&#x1f433;</span>Docker)</center></h1><h6 id="tags-coreDNS-docker-centos-el8"><a href="#tags-coreDNS-docker-centos-el8" class="headerlink" title="tags: coreDNS docker centos el8"></a>tags: <code>coreDNS</code> <code>docker</code> <code>centos</code> <code>el8</code></h6><h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><ul>
 <li><p><code>step 1</code> Add docker repo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
 <li><p><code>step 2</code> Installing docker-ce 相關依賴套件</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> buildah</li>
 <li><input checked="" disabled="" type="checkbox"> podman</li>
-<li><input disabled="" type="checkbox"> containerd.io &gt; 1.2.0-3.el7<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure>
+<li><input disabled="" type="checkbox"> containerd.io &gt; 1.2.0-3.el7<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>step 2.5</strong> Manual Installing containerd.io</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">版本號 1.2.13-3.2 可更換最新的 </span><br><span class="line">$ sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/#more" rel="contents">
@@ -469,7 +470,7 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-tw,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en,zh-TW,default">
     <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -502,7 +503,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-11 22:51:34" itemprop="dateModified" datetime="2020-11-11T22:51:34+08:00">2020-11-11</time>
+        <time title="Modified: 2020-11-11 23:47:29" itemprop="dateModified" datetime="2020-11-11T23:47:29+08:00">2020-11-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -522,7 +523,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>10k</span>
+      <span>9.7k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -548,8 +549,12 @@
 </ul>
 <p>ELK是有收費版本的 而Xpack部分功能只有付費才開放<br>請參考：<a target="_blank" rel="noopener" href="https://www.elastic.co/subscriptions">X-Pack features</a></p>
 <ul>
-<li>ELK叢集安全模式<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">＃ES設定中加入</span> <span class="string">就是開啟xpack</span></span><br><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-:::info<br>重要觀念:<br>誰對誰 誰是server端 誰是client要分清楚<br>一個服務可能又是server又是client<br>:::
+<li>ELK叢集安全模式<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">＃ES設定中加入</span> <span class="string">就是開啟xpack</span></span><br><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><h4 id="重要觀念"><a href="#重要觀念" class="headerlink" title="重要觀念:"></a>重要觀念:</h4><p>誰對誰 誰是server端 誰是client要分清楚<br>一個服務可能又是server又是client</p>
+</div>
+
+</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/#more" rel="contents">
@@ -610,6 +615,24 @@
   <footer class="footer">
     <div class="footer-inner">
       
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>English</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="en" data-href="/index.html" selected="">
+          English
+        </option>
+      
+        <option value="zh-TW" data-href="/zh-TW/index.html" selected="">
+          繁體中文
+        </option>
+      
+    </select>
+  </div>
 
       
 
@@ -618,7 +641,7 @@
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fab fa-napster"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nap_Huang</span>
 </div>

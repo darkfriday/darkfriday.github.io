@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-tw,en,default">
+<html lang="en,zh-TW,default">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -21,7 +21,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
   <meta name="description" content="Sharing about tech &amp; sport etc..">
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://darkfriday.github.io/tags/CentOS/index.html">
 <meta property="og:site_name" content="Darkfriday&#39;s Blog">
 <meta property="og:description" content="Sharing about tech &amp; sport etc..">
-<meta property="og:locale" content="zh_TW">
+<meta property="og:locale" content="en_US">
 <meta property="article:author" content="Nap_Huang">
 <meta name="twitter:card" content="summary">
 
@@ -44,7 +44,7 @@
     sidebar: "",
     isHome : false,
     isPost : false,
-    lang   : 'zh-tw'
+    lang   : 'en'
   };
 </script>
 
@@ -230,6 +230,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -337,6 +338,24 @@
   <footer class="footer">
     <div class="footer-inner">
       
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>English</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="en" data-href="/tags/CentOS/index.html" selected="">
+          English
+        </option>
+      
+        <option value="zh-TW" data-href="/zh-TW/tags/CentOS/index.html" selected="">
+          繁體中文
+        </option>
+      
+    </select>
+  </div>
 
       
 
@@ -345,7 +364,7 @@
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fab fa-napster"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nap_Huang</span>
 </div>
