@@ -1,363 +1,102 @@
-<!DOCTYPE html>
-<html lang="en,zh-TW,default">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="google-site-verification" content="xG96ZoCM9Abk4Zg0V2CsjrvFzEwcEtepmC4q5rQ-7HY">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
-
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
-  </script>
-
-  <meta name="description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定tags: ELK, beats, security , SSL , TLS0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitor">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch、Kibana、Beats 和 Logstash 的安全設定">
-<meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/index.html">
-<meta property="og:site_name" content="Darkfriday&#39;s Blog">
-<meta property="og:description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定tags: ELK, beats, security , SSL , TLS0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitor">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-11-12T03:28:54.460Z">
-<meta property="article:author" content="Nap_Huang">
-<meta property="article:tag" content="Beats">
-<meta property="article:tag" content="ELK">
-<meta property="article:tag" content="Security">
-<meta property="article:tag" content="SSL">
-<meta property="article:tag" content="TLS">
-<meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/">
-
-
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
-
-  <title>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 | Darkfriday's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <h1 class="site-title">Darkfriday's Blog</h1>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">Subtitle</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-        
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#x1f510-Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A"><span class="nav-text">&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-ELK-beats-security-SSL-TLS"><span class="nav-text">tags: ELK, beats, security , SSL , TLS</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E4%BA%86%E8%A7%A3ELK-Xpack-amp-%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="nav-text">0. 了解ELK_Xpack &amp; 安全模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E8%A7%80%E5%BF%B5"><span class="nav-text">重要觀念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8%E6%86%91%E8%AD%89%E7%94%A2%E7%94%9F%E5%B7%A5%E5%85%B7%E7%82%BA%E6%AF%8F%E5%80%8Bes-node-%E7%94%A2%E7%94%9F%E6%86%91%E8%AD%89"><span class="nav-text">1. 使用憑證產生工具為每個es_node 產生憑證</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#openssl-ex"><span class="nav-text">openssl ex:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A2%E7%94%9FCA"><span class="nav-text">產生CA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E5%90%84ES%E6%86%91%E8%AD%89%E4%B8%B2%E8%87%AA%E7%B0%BD%E7%9A%84CA-%E6%98%AF%E5%90%A6%E5%8A%A0%E5%AF%86%E7%A2%BC-%E7%B6%81%E5%AE%9A%E5%9F%9F%E5%90%8D-IP-%E9%97%9C%E4%BF%82%E5%BE%8C%E7%BA%8C%E9%A9%97%E8%AD%89%E6%96%B9%E5%BC%8F"><span class="nav-text">產生各ES憑證串自簽的CA (是否加密碼,綁定域名,IP 關係後續驗證方式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A2%E7%94%9Fhttp-ssl-%E6%98%AF%E5%90%A6%E5%8A%A0%E5%AF%86%E7%A2%BC-%E7%B6%81%E5%AE%9A%E5%9F%9F%E5%90%8D-IP-%E9%97%9C%E4%BF%82%E5%BE%8C%E7%BA%8C%E9%A9%97%E8%AD%89%E6%96%B9%E5%BC%8F"><span class="nav-text">產生http_ssl (是否加密碼,綁定域名,IP 關係後續驗證方式)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A8%AD%E5%AE%9A%E6%AF%8F%E5%80%8Bes-node%E7%9A%84%E6%86%91%E8%AD%89%EF%BC%9A"><span class="nav-text">2. 設定每個es_node的憑證：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%AE%8C%E7%95%A2%E8%A8%98%E5%BE%97%E9%87%8D%E5%95%9F%E6%9C%8D%E5%8B%99"><span class="nav-text">設定完畢記得重啟服務</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E9%97%9CES%E6%9C%8D%E5%8B%99%E6%BB%BE%E5%8B%95%E5%BC%8F%E5%8D%87%E7%B4%9A-x1f573"><span class="nav-text">有關ES服務滾動式升級&amp;#x1f573;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%A8%AD%E5%AE%9A%E7%9B%A3%E6%8E%A7-%E8%B7%9F-%E5%B8%B3%E5%AF%86"><span class="nav-text">3. 設定監控 跟 帳密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%A8%AD%E5%AE%9A-Kibana"><span class="nav-text">4. 設定 Kibana</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%A8%AD%E5%AE%9A-Logstash"><span class="nav-text">5. 設定 Logstash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-passwords-on-client-side-keystore"><span class="nav-text">Configure passwords on client-side(keystore)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E8%A8%AA%E5%95%8F%E5%B8%B3%E8%99%9F%E6%AC%8A%E9%99%90"><span class="nav-text">設定訪問帳號權限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Logstash-Server%E7%AB%AF%E5%8A%A0%E5%AF%86%E8%A8%AD%E5%AE%9A"><span class="nav-text">Logstash Server端加密設定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%A8%AD%E5%AE%9A-Beats"><span class="nav-text">6. 設定 Beats</span></a></li></ol></li></ol></li></ol></div>
-        </section>
-        <!--/noindex-->
-
-        <section class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Nap_Huang</p>
-  <div class="site-description" itemprop="description">Sharing about tech & sport etc..</div>
-</div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">3</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2RhcmtmcmlkYXk=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday"><i class="fab fa-github fa-fw"></i>GitHub</span>
-      </span>
-      <span class="links-of-author-item">
-        <span class="exturl" data-url="bWFpbHRvOjEzdGhkYXJrZnJpZGF5QGdtYWlsLmNvbQ==" title="E-Mail → mailto:13thdarkfriday@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
-      </span>
-  </div>
-  <div class="cc-license site-overview-item animated" itemprop="license">
-    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpoX1RX"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
-  </div>
-
-
-
-        </section>
-      </div>
-    </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-    <div class="main-inner post posts-expand">
-      
-
-      
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Nap_Huang">
-      <meta itemprop="description" content="Sharing about tech & sport etc..">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Darkfriday's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Elasticsearch、Kibana、Beats 和 Logstash 的安全設定
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-11-10 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-10T00:00:00+08:00">2020-11-10</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-12 11:28:54" itemprop="dateModified" datetime="2020-11-12T11:28:54+08:00">2020-11-12</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
-        </span>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>10k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>9 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <h1 id="x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定"><a href="#x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定" class="headerlink" title="&#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定"></a><center><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</center></h1><h6 id="tags-ELK-beats-security-SSL-TLS"><a href="#tags-ELK-beats-security-SSL-TLS" class="headerlink" title="tags: ELK, beats, security , SSL , TLS"></a>tags: <code>ELK</code>, <code>beats</code>, <code>security</code> , <code>SSL</code> , <code>TLS</code></h6><h3 id="0-了解ELK-Xpack-amp-安全模式"><a href="#0-了解ELK-Xpack-amp-安全模式" class="headerlink" title="0. 了解ELK_Xpack &amp; 安全模式"></a>0. 了解ELK_Xpack &amp; 安全模式</h3><ul>
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Auditbeat_install@CentOS8</title>
+    <url>/2020/11/10/Auditbeat-install-2020-11-10/</url>
+    <content><![CDATA[<h1 id="x1f4e6-Auditbeat-install-CentOS8"><a href="#x1f4e6-Auditbeat-install-CentOS8" class="headerlink" title="&#x1f4e6;Auditbeat_install@CentOS8 "></a><center><span class="github-emoji" alias="package" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png?v8">&#x1f4e6;</span>Auditbeat_install@CentOS8 </center></h1><h6 id="tags-dnf-beats-centos-el8"><a href="#tags-dnf-beats-centos-el8" class="headerlink" title="tags: dnf, beats, centos , el8"></a>tags: <code>dnf</code>, <code>beats</code>, <code>centos</code> , <code>el8</code></h6><h3 id="Download-elastic-repo-GPG-key"><a href="#Download-elastic-repo-GPG-key" class="headerlink" title="Download elastic repo GPG key"></a>Download elastic repo GPG key</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h3 id="Create-repo-in-etc-yum-repos-d"><a href="#Create-repo-in-etc-yum-repos-d" class="headerlink" title="Create .repo in /etc/yum.repos.d/"></a>Create <code>.repo</code> in <code>/etc/yum.repos.d/</code></h3><figure class="highlight plain"><figcaption><span>/etc/yum.repos.d/elastic.repo</span></figcaption><table><tr><td class="code"><pre><span class="line">[elastic-7.x]</span><br><span class="line">name&#x3D;Elastic repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<ul>
+<li>dnf install auditbeat<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf install auditbeat</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Configure-automatiically-during-boot"><a href="#Configure-automatiically-during-boot" class="headerlink" title="Configure automatiically during boot"></a>Configure automatiically during boot</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> auditbeat</span><br><span class="line">$ sudo systemctl start auditbeat</span><br></pre></td></tr></table></figure>
+<h3 id="Modify-output-IP-address-amp-configure-mem-queue-size"><a href="#Modify-output-IP-address-amp-configure-mem-queue-size" class="headerlink" title="Modify output IP address &amp; configure mem queue size"></a>Modify output IP address &amp; configure mem queue size</h3><p>注意網段<code>.1</code> or <code>.2</code></p>
+<div class="tabs" id="unique-name"><ul class="nav-tabs"><li class="tab active"><a href="#unique-name-1">.1網段</a></li><li class="tab"><a href="#unique-name-2">.2網段</a></li></ul><div class="tab-content"><div class="tab-pane active" id="unique-name-1"><figure class="highlight yaml"><figcaption><span>/etc/aduitbeat/aduitbeat.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">output.elasticsearch:</span></span><br><span class="line">  <span class="attr">hosts:</span> [<span class="string">&quot;10.10.1.247:9200&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">queue.mem:</span></span><br><span class="line">  <span class="attr">events:</span> <span class="number">1024</span></span><br><span class="line">  <span class="attr">flush.min_events:</span> <span class="number">512</span></span><br><span class="line">  <span class="attr">flush.timeout:</span> <span class="string">5s</span></span><br></pre></td></tr></table></figure></div><div class="tab-pane" id="unique-name-2"><figure class="highlight yaml"><figcaption><span>/etc/aduitbeat/aduitbeat.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">output.elasticsearch:</span></span><br><span class="line">  <span class="attr">hosts:</span> [<span class="string">&quot;10.10.2.247:9200&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">queue.mem:</span></span><br><span class="line">  <span class="attr">events:</span> <span class="number">1024</span></span><br><span class="line">  <span class="attr">flush.min_events:</span> <span class="number">512</span></span><br><span class="line">  <span class="attr">flush.timeout:</span> <span class="string">5s</span></span><br></pre></td></tr></table></figure></div></div></div>
+
+<p>Plus: <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9iZWF0cy9hdWRpdGJlYXQvY3VycmVudC9ydW5uaW5nLW9uLWRvY2tlci5odG1s">Run auditbeat on Docker<i class="fa fa-external-link-alt"></i></span></p>
+]]></content>
+      <categories>
+        <category>Tech</category>
+      </categories>
+      <tags>
+        <tag>Dnf</tag>
+        <tag>Beats</tag>
+        <tag>CentOS</tag>
+        <tag>EL8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CoreDNS 安裝教學 in Centos8</title>
+    <url>/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/</url>
+    <content><![CDATA[<h1 id="x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker"><a href="#x2693-CoreDNS-安裝教學-in-Centos8-x1f433-Docker" class="headerlink" title="&#x2693;CoreDNS 安裝教學 in Centos8(&#x1f433;Docker)"></a><center><span class="github-emoji" alias="anchor" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2693.png?v8">&#x2693;</span>CoreDNS 安裝教學 in Centos8(<span class="github-emoji" alias="whale" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png?v8">&#x1f433;</span>Docker)</center></h1><h6 id="tags-coreDNS-docker-centos-el8"><a href="#tags-coreDNS-docker-centos-el8" class="headerlink" title="tags: coreDNS docker centos el8"></a>tags: <code>coreDNS</code> <code>docker</code> <code>centos</code> <code>el8</code></h6><h2 id="安裝Docker"><a href="#安裝Docker" class="headerlink" title="安裝Docker"></a>安裝Docker</h2><ul>
+<li><p><code>step 1</code> Add docker repo</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> Installing docker-ce 相關依賴套件</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> buildah</li>
+<li><input checked="" disabled="" type="checkbox"> podman</li>
+<li><input disabled="" type="checkbox"> containerd.io &gt; 1.2.0-3.el7<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf -y install buildah &amp;&amp; dnf -y install podman</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>step 2.5</strong> Manual Installing containerd.io</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">版本號 1.2.13-3.2 可更換最新的 </span><br><span class="line">$ sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p><code>step 3</code> Installing docker-ce</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf -y install docker-ce</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>step 4</code> 關閉防火牆(會造成docker內部橋接網路不通)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 5</code> Start and enable the docker daemon</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">設定為daemon啟動</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> --now docker</span><br><span class="line"></span><br><span class="line">檢查是否啟動</span><br><span class="line">$ sudo systemctl is-active docker</span><br><span class="line"></span><br><span class="line">檢查是否自動啟動</span><br><span class="line">$ sudo systemctl is-enabled docker</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 6</code> Installing docker-compose（手動方式）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">下載可執行檔案 1.27.0-rc3 可更換最新的</span><br><span class="line">$ curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.27.0-rc3/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o docker-compose</span><br><span class="line">加可執行and傳到/usr/<span class="built_in">local</span>/bin底下</span><br><span class="line">$ sudo mv docker-compose /usr/<span class="built_in">local</span>/bin &amp;&amp; sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>:::info<br>==番外== testing docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker run --rm --name=linuxconfig-test -p 80:80 httpd </span><br><span class="line">如果成功用瀏覽器在自己的ip打開 會看到it<span class="string">&#x27;s work!</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker rmi httpd</span><br><span class="line">刪除測試用httpd</span><br></pre></td></tr></table></figure>
+<p>:::</p>
+</li>
+</ul>
+<h2 id="安裝CoreDNS"><a href="#安裝CoreDNS" class="headerlink" title="安裝CoreDNS"></a>安裝CoreDNS</h2><ul>
+<li><p><code>step 1</code> dockerhub 上抓coredn的映像檔</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker pull coredns/coredns</span><br></pre></td></tr></table></figure></li>
+<li><p><code>step 2</code> config coredns </p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> docker-compose.yml<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo mkdir -p docker/coredns/config &amp;&amp; <span class="built_in">cd</span> docker/coredns &amp;&amp; vim docker-compose.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">coredns:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">coredns/coredns:latest</span></span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">coredns</span></span><br><span class="line">      <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53/udp&#x27;</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;53:53/udp&#x27;</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;$PWD/config/:/etc/coredns/&#x27;</span></span><br><span class="line">      <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;-conf&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;/etc/coredns/Corefile&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><input checked="" disabled="" type="checkbox"> Corefile<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vim config/Corefile</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">.:<span class="number">53</span> &#123;</span><br><span class="line">    forward . <span class="number">8.8</span>.<span class="number">8.8</span>:<span class="number">53</span></span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mis &#123;</span><br><span class="line">    <span class="keyword">file</span> /etc/coredns/mis</span><br><span class="line">    <span class="built_in">log</span></span><br><span class="line">    errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><input checked="" disabled="" type="checkbox"> mis<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vim config/mis</span><br></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line"><span class="meta">$TTL</span> <span class="number">10</span></span><br><span class="line">@     <span class="keyword">IN</span>  <span class="keyword">SOA</span>     ns1.service. root.ns.service. (</span><br><span class="line">            <span class="number">2</span>   <span class="comment">;serial</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; refresh</span></span><br><span class="line">            <span class="number">1800</span> <span class="comment">; retry</span></span><br><span class="line">            <span class="number">10</span>  <span class="comment">; expire</span></span><br><span class="line">            <span class="number">300</span> <span class="comment">; minimum</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">;name servers</span></span><br><span class="line">@       <span class="keyword">IN</span>      <span class="keyword">NS</span>      ns1.service.</span><br><span class="line">ns1.service.    <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">10.20.10.246</span></span><br><span class="line">vcsa   <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.200</span></span><br><span class="line">esxi201 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.201</span></span><br><span class="line">esxi202 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.202</span></span><br><span class="line">esxi203 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.203</span></span><br><span class="line">esxi204 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.204</span></span><br><span class="line">esxi205 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.205</span></span><br><span class="line">esxi206 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.206</span></span><br><span class="line">esxi207 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.207</span></span><br><span class="line">esxi208 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.208</span></span><br><span class="line">esxi209 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.209</span></span><br><span class="line">esxi210 <span class="keyword">IN</span> <span class="keyword">A</span> <span class="number">192.168.9.210</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>step 3</code> Run docker-compose </p>
+</li>
+</ul>
+<p>enable</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>restart</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker-compose restart coredns</span><br><span class="line">or</span><br><span class="line">$ sudo docker restart coredns</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>EL8</tag>
+        <tag>Docker</tag>
+        <tag>Coredns</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</title>
+    <url>/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/</url>
+    <content><![CDATA[<h1 id="x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定"><a href="#x1f510-Elasticsearch、Kibana、Beats-和-Logstash-的安全設定" class="headerlink" title="&#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定"></a><center><span class="github-emoji" alias="closed_lock_with_key" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f510.png?v8">&#x1f510;</span>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定</center></h1><h6 id="tags-ELK-beats-security-SSL-TLS"><a href="#tags-ELK-beats-security-SSL-TLS" class="headerlink" title="tags: ELK, beats, security , SSL , TLS"></a>tags: <code>ELK</code>, <code>beats</code>, <code>security</code> , <code>SSL</code> , <code>TLS</code></h6><h3 id="0-了解ELK-Xpack-amp-安全模式"><a href="#0-了解ELK-Xpack-amp-安全模式" class="headerlink" title="0. 了解ELK_Xpack &amp; 安全模式"></a>0. 了解ELK_Xpack &amp; 安全模式</h3><ul>
 <li>Xpack<blockquote>
 <p>X-Pack is an Elastic Stack extension that provides security, alerting, monitoring, reporting, machine learning, and many other capabilities.</p>
 </blockquote>
@@ -456,183 +195,16 @@
 </li>
 </ul>
 <p>Configure passwords on client-side</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/share/apm-server/bin/filebeat keystore create</span><br><span class="line">/usr/share/apm-server/bin/filebeat add elasticsearch.username</span><br><span class="line">/usr/share/apm-server/bin/filebeat add elasticsearch.password</span><br></pre></td></tr></table></figure>
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Beats/" rel="tag"><i class="fa fa-tag"></i> Beats</a>
-              <a href="/tags/ELK/" rel="tag"><i class="fa fa-tag"></i> ELK</a>
-              <a href="/tags/Security/" rel="tag"><i class="fa fa-tag"></i> Security</a>
-              <a href="/tags/SSL/" rel="tag"><i class="fa fa-tag"></i> SSL</a>
-              <a href="/tags/TLS/" rel="tag"><i class="fa fa-tag"></i> TLS</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-            </div>
-            <div class="post-nav-item">
-                <a href="/2020/11/10/CoreDNS%20%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%20in%20Centos8(Docker)/" rel="next" title="CoreDNS 安裝教學 in Centos8">
-                  CoreDNS 安裝教學 in Centos8 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-      
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      
-  <div class="languages">
-    <label class="lang-select-label">
-      <i class="fa fa-language"></i>
-      <span>English</span>
-      <i class="fa fa-angle-up" aria-hidden="true"></i>
-    </label>
-    <select class="lang-select" data-canonical="">
-      
-        <option value="en" data-href="/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" selected="">
-          English
-        </option>
-      
-        <option value="zh-TW" data-href="/zh-TW/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/" selected="">
-          繁體中文
-        </option>
-      
-    </select>
-  </div>
-
-      
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fab fa-napster"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Nap_Huang</span>
-</div>
-<div class="wordcount">
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
-    </span>
-    <span title="Symbols count total">13k</span>
-  </span>
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="Reading time total">12 mins.</span>
-  </span>
-</div>
-  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span>
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-  
-
-  
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css">
-
-<script>
-NexT.utils.loadComments('#disqus_thread', () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', () => {
-    window.dsqjs = new DisqusJS({
-      api       : '' || 'https://disqus.com/api/',
-      apikey    : 'NwY7NPvSlt4vi4d2z8NpIfzu7ow5dB3WJcxfcIj6oOmTreYyuADmN7xn2NywHmhv',
-      shortname : 'darkfriday-github-io',
-      url       : "https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats%20%E5%92%8C%20Logstash%20%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/",
-      identifier: "2020/11/10/Elasticsearch、Kibana、Beats 和 Logstash 的安全設定/",
-      title     : "Elasticsearch、Kibana、Beats 和 Logstash 的安全設定",
-    });
-  }, window.DisqusJS);
-});
-</script>
-
-</body>
-</html>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/share/apm-server/bin/filebeat keystore create</span><br><span class="line">/usr/share/apm-server/bin/filebeat add elasticsearch.username</span><br><span class="line">/usr/share/apm-server/bin/filebeat add elasticsearch.password</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Tech</category>
+      </categories>
+      <tags>
+        <tag>Beats</tag>
+        <tag>ELK</tag>
+        <tag>Security</tag>
+        <tag>SSL</tag>
+        <tag>TLS</tag>
+      </tags>
+  </entry>
+</search>
