@@ -33,7 +33,7 @@
 <meta property="og:description" content="&amp;#x1f4ab;Elasticsearch API 範例 Rolling upgradehttps:&#x2F;&#x2F;www.elastic.co&#x2F;guide&#x2F;en&#x2F;elasticsearch&#x2F;reference&#x2F;current&#x2F;rolling-upgrades.html dev_tools: http:&#x2F;&#x2F;&lt;$kibana_server&gt;&#x2F;app&#x2F;dev_tools#&#x2F;console 1. g">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-18T02:58:35.000Z">
-<meta property="article:modified_time" content="2020-11-18T02:58:35.230Z">
+<meta property="article:modified_time" content="2020-11-18T03:21:20.107Z">
 <meta property="article:author" content="Nap_Huang">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="API">
@@ -318,8 +318,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2020-11-18 10:58:35" itemprop="dateCreated datePublished" datetime="2020-11-18T10:58:35+08:00">2020-11-18</time>
+      <time title="Created: 2020-11-18 10:58:35 / Modified: 11:21:20" itemprop="dateCreated datePublished" datetime="2020-11-18T10:58:35+08:00">2020-11-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -364,6 +365,7 @@
 
 <h4 id="2-disabele-node-allocation-amp-flush-synced"><a href="#2-disabele-node-allocation-amp-flush-synced" class="headerlink" title="2. disabele node allocation &amp; flush synced"></a>2. disabele node allocation &amp; flush synced</h4><p>只允許自動分配主要shard 不分配replicate </p>
 <figure class="highlight rust"><figcaption><span>dev_tools</span></figcaption><table><tr><td class="code"><pre><span class="line">PUT _cluster/settings</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;persistent&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;cluster.routing.allocation.enable&quot;</span>: <span class="string">&quot;primaries&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">POST _flush</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 
 <p>然後開始停服務升級 自行操作 這邊只說api的部分 <code>這邊要注意 有一台會是kibana連接的es(除非用domain 並做輪替詢問之類的HA機制)</code> </p>
 <h4 id="3-enabele-node-allocation-amp-recovery-shards-status"><a href="#3-enabele-node-allocation-amp-recovery-shards-status" class="headerlink" title="3. enabele node allocation &amp; recovery shards status"></a>3. enabele node allocation &amp; recovery shards status</h4><p>升級完畢開回自動分配 並查看後續shards回復狀態(到全綠色)</p>
