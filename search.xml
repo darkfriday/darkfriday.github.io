@@ -94,6 +94,125 @@
       </tags>
   </entry>
   <entry>
+    <title>ELK完全安裝手冊</title>
+    <url>/2021/02/05/ELK%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B/</url>
+    <content><![CDATA[<h6 id="tags-elk-elastic-logstash-kibana"><a href="#tags-elk-elastic-logstash-kibana" class="headerlink" title="tags: elk elastic logstash kibana"></a>tags: <code>elk</code> <code>elastic</code> <code>logstash</code> <code>kibana</code></h6><h1 id="x1f4b9-ELK完全安裝手冊"><a href="#x1f4b9-ELK完全安裝手冊" class="headerlink" title=" &#x1f4b9;ELK完全安裝手冊"></a><center> <span class="github-emoji" alias="chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4b9.png?v8">&#x1f4b9;</span>ELK完全安裝手冊</center></h1><p>XXXbeat = <code>事件發送裝置</code><br>Logstash = <code>事件處理裝置</code><br>Elasticsearchs = <code>搜索引擎</code><br>Gafana,Kibana = <code>使用者瀏覽+操作介面端</code><br>配合 <span class="exturl" data-url="aHR0cDovLzEwLjEwLjEwLjI0NDozMDAwL1VuenpiUXQ3UVBHSDB3UWRCc2NNbXc=">ELK安全性<i class="fa fa-external-link-alt"></i></span> 可以得知中間每一條虛線都可以加密,且圍繞著Elasticsearch有帳密驗證<br>事件如果不需要==額外==處理,可以直接跳過事件處理裝置直接送到搜索引擎</p>
+<hr>
+<p><font color="red">紅色GET</font><br><font color="blue">藍色POST</font></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">digraph ELK &#123; </span><br><span class="line">fontsize &#x3D; 14;</span><br><span class="line">nodesep&#x3D;0.6</span><br><span class="line">edge [color&#x3D;Blue,style&#x3D;dashed]</span><br><span class="line">node [fontname&#x3D;Courier,shape&#x3D;record,color&#x3D;&quot;skyblue&quot;, style&#x3D;&quot;filled&quot;]</span><br><span class="line"></span><br><span class="line">subgraph cluster_shiper&#123;</span><br><span class="line">label&#x3D;&quot;線上機器&#39;s&quot;;</span><br><span class="line">bgcolor&#x3D;&quot;mintcream&quot;;</span><br><span class="line">Filebeat;</span><br><span class="line">Auditbeat</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">subgraph cluster_es&#123;</span><br><span class="line">label&#x3D;&quot;ES_clusters&quot;;</span><br><span class="line">bgcolor&#x3D;&quot;mintcream&quot;;</span><br><span class="line">Elasticsearchs</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Elasticsearchs[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;yellow&quot;]</span><br><span class="line">Browser[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;green&quot;]</span><br><span class="line">Logstash[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;orange&quot;]</span><br><span class="line">Kibana[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;red&quot;]</span><br><span class="line">Gafana[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;brown&quot;]</span><br><span class="line"></span><br><span class="line">Elasticsearchs-&gt;Elasticsearchs[color&#x3D;&quot;green&quot;][label&#x3D;&quot;9300&quot;];</span><br><span class="line">Logstash-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Filebeat-&gt;Logstash[label&#x3D;&quot;5044&quot;];</span><br><span class="line">syslog_client-&gt;Logstash[label&#x3D;&quot;5041-5045&quot;];    </span><br><span class="line">Filebeat-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Auditbeat-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Kibana-&gt;Elasticsearchs;</span><br><span class="line">Elasticsearchs-&gt;Kibana[color&#x3D;&quot;red&quot;][label&#x3D;&quot;RESTful 9200&quot;];</span><br><span class="line">Elasticsearchs-&gt;Gafana[color&#x3D;&quot;red&quot;][label&#x3D;&quot;9200&quot;]</span><br><span class="line">Kibana-&gt;Browser[color&#x3D;&quot;red&quot;][label&#x3D;&quot;https 5061&quot;]</span><br><span class="line">Gafana-&gt;Browser[color&#x3D;&quot;red&quot;][label&#x3D;&quot;http 3000&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<a id="more"></a>
+
+<h3 id="Elastic-Stack-License"><a href="#Elastic-Stack-License" class="headerlink" title="Elastic Stack License"></a>Elastic Stack License</h3><p>ELK7版以後內建有基本的安全性設定及部分額外功能，額外功能都需綁定開啟安全性。因此強烈推薦開啟安全性設定。<br>文章內使用到的為Basic版開啟認證系統節點中通訊加密採用 SSL</p>
+<h4 id="有關版本差異"><a href="#有關版本差異" class="headerlink" title="有關版本差異"></a>有關版本差異</h4><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9zdWJzY3JpcHRpb25z">X-Packs<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="安裝-Elasticsearchs"><a href="#安裝-Elasticsearchs" class="headerlink" title="安裝 Elasticsearchs"></a>安裝 Elasticsearchs</h3><table>
+<thead>
+<tr>
+<th>IP1</th>
+<th>IP2</th>
+<th>Http Port（ES HTTP API）</th>
+<th>Transport Port（ES叢集内部通信用）</th>
+<th>nodename</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.10.9.247</td>
+<td>10.20.30.247</td>
+<td>9200</td>
+<td>9300</td>
+<td>tribe-node</td>
+</tr>
+<tr>
+<td>10.10.9.47</td>
+<td>10.20.30.47</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-1</td>
+</tr>
+<tr>
+<td>10.10.9.48</td>
+<td>10.20.30.48</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-2</td>
+</tr>
+<tr>
+<td>10.10.9.49</td>
+<td>10.20.30.49</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-3</td>
+</tr>
+<tr>
+<td>10.10.9.50</td>
+<td>10.20.30.50</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-4</td>
+</tr>
+<tr>
+<td>10.10.9.51</td>
+<td>10.20.30.51</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-5</td>
+</tr>
+<tr>
+<td>10.10.9.52</td>
+<td>10.20.30.52</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-6</td>
+</tr>
+</tbody></table>
+<ul>
+<li><input disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWMvYW5zaWJsZS1lbGFzdGljc2VhcmNo">ansible<i class="fa fa-external-link-alt"></i></span></li>
+<li><input disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L2RvY2tlci5odG1s">docker<i class="fa fa-external-link-alt"></i></span></li>
+<li><input checked="" disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3JwbS5odG1s">dnf-RPM<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p>下載匯入PGP Key</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">rpm --<span class="keyword">import</span> <span class="attr">https:</span><span class="comment">//artifacts.elastic.co/GPG-KEY-elasticsearch</span></span><br></pre></td></tr></table></figure>
+
+<p>新增elastic stack repo <code>/etc/yum.repos.d/elastic.repo</code></p>
+<figure class="highlight plain"><figcaption><span>/etc/yum.repos.d/</span></figcaption><table><tr><td class="code"><pre><span class="line">[elasticsearch]</span><br><span class="line">name&#x3D;Elasticsearch repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;0</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
+
+<p>啟用repo</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dnf install --enablerepo=elasticsearch elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>systemd enable</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /bin/systemctl daemon-reload</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> elasticsearch.service</span><br><span class="line">sudo systemctl start elasticsearch.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="系統設定"><a href="#系統設定" class="headerlink" title="系統設定"></a>系統設定</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3N5c3RlbS1jb25maWcuaHRtbA==">https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="Disable-swapping"><a href="#Disable-swapping" class="headerlink" title="Disable swapping"></a>Disable swapping</h4><ul>
+<li>Disable all swap files   <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo swapoff -a</span><br><span class="line">sudo vim /etc/fstab <span class="comment">#掉swap mount的部分</span></span><br></pre></td></tr></table></figure></li>
+<li>Enable bootstrap.memory_lock in <code>elasticsearch.yml</code>  <figure class="highlight yaml"><figcaption><span>elasticsearch.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line"># allow user &#39;elasticsearch&#39; mlockall</span><br><span class="line">elasticsearch soft memlock unlimited</span><br><span class="line">elasticsearch hard memlock unlimited</span><br></pre></td></tr></table></figure>
+<h4 id="Increase-file-descriptors"><a href="#Increase-file-descriptors" class="headerlink" title="Increase file descriptors"></a>Increase file descriptors</h4></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">elasticsearch  -  nofile  65535</span><br></pre></td></tr></table></figure>
+<h4 id="Ensure-sufficient-virtual-memory"><a href="#Ensure-sufficient-virtual-memory" class="headerlink" title="Ensure sufficient virtual memory"></a>Ensure sufficient virtual memory</h4></li>
+<li>sysctl <code>/etc/sysctl.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/sysctl.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">vm.swappiness&#x3D;1</span><br><span class="line">vm.max_map_count&#x3D;262144</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<h4 id="Ensure-sufficient-threads"><a href="#Ensure-sufficient-threads" class="headerlink" title="Ensure sufficient threads"></a>Ensure sufficient threads</h4></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">elasticsearch  -  nproc  4096</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Elasticsearch-基礎概念"><a href="#Elasticsearch-基礎概念" class="headerlink" title="Elasticsearch 基礎概念"></a>Elasticsearch 基礎概念</h3><h4 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h4><p>叢集 由一台或多台的Elasticsearch 節點(Node)組成</p>
+<h4 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h4><p>節點 即為Elasticsearch的服務本身 同一台機器上啟動兩個Elasticsearch服務(docker or 不同port) 就是兩個node</p>
+<h4 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h4><p>索引 具有相同結構的文檔集合體 類似關連式database本身 每一個節點內可以有多個索引</p>
+<h4 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h4><p>文檔 Elasticsearch中最小的儲存單元 JSON數據格式 複數Document組合而成索引 文檔類似關聯式database中表內一筆記錄。</p>
+<h4 id="Shard"><a href="#Shard" class="headerlink" title="Shard"></a>Shard</h4><p>分片又稱Primary shard<br>單個索引切分成多個shard，分佈在多台Node節點上存儲。可以利用shard很好的橫向擴展，以存儲更多的數據，同時shard分佈在多台node上，可以提升集群整體的吞吐量和性能。在創建索引的時候可以直接指定分片的數量即可，一旦指定就不能再修改了。</p>
+<h4 id="Replica"><a href="#Replica" class="headerlink" title="Replica"></a>Replica</h4><p>分片副本又稱Replica shard<br>跟主shard的內容一樣 一個shard可以有一個或者多個replica 作用是同主分片一同分散在各節點內以提高冗餘並增加讀搜尋速度(類似raid的概念)</p>
+]]></content>
+      <categories>
+        <category>tech</category>
+      </categories>
+      <tags>
+        <tag>EL8</tag>
+        <tag>ELK</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Elasticsearch API 範例</title>
     <url>/2020/11/18/Elasticsearch-API-%E7%AF%84%E4%BE%8B/</url>
     <content><![CDATA[<h1 id="x1f4ab-Elasticsearch-API-範例"><a href="#x1f4ab-Elasticsearch-API-範例" class="headerlink" title=" &#x1f4ab;Elasticsearch API 範例 "></a><center> <span class="github-emoji" alias="dizzy" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ab.png?v8">&#x1f4ab;</span>Elasticsearch API 範例 </center></h1><h3 id="Rolling-upgrade"><a href="#Rolling-upgrade" class="headerlink" title="Rolling upgrade"></a>Rolling upgrade</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3JvbGxpbmctdXBncmFkZXMuaHRtbA==">https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html<i class="fa fa-external-link-alt"></i></span></p>
@@ -209,7 +328,7 @@
 
 </li>
 </ul>
-<figure class="highlight ruby"><figcaption><span>$LS_HOME/conf.d/output.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">	elasticsearch &#123;</span><br><span class="line">    	user =&gt; <span class="string">&quot;$&#123;LW_USER&#125;&quot;</span></span><br><span class="line">    	password =&gt; <span class="string">&quot;$&#123;LW_PWD&#125;&quot;</span></span><br><span class="line">    	ssl =&gt; <span class="literal">true</span></span><br><span class="line">    	cacert =&gt; <span class="string">&quot;/etc/logstash/elasticsearch-ca.pem&quot;</span></span><br><span class="line">    	hosts =&gt; <span class="string">&quot;http://localhost:9200&quot;</span></span><br><span class="line">    	<span class="keyword">if</span> <span class="string">&quot;nginx&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			<span class="keyword">if</span> [@metadata][pipeline] &#123;</span><br><span class="line">				<span class="comment">#manage_template =&gt; false</span></span><br><span class="line">				index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">				pipeline =&gt; <span class="string">&quot;%&#123;[@metadata][pipeline]&#125;&quot;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				manage_template =&gt; <span class="literal">false</span></span><br><span class="line">				ilm_enabled =&gt; <span class="literal">true</span></span><br><span class="line">				ilm_rollover_alias =&gt; <span class="string">&quot;nginx-log&quot;</span></span><br><span class="line">				<span class="comment">#ilm_pattern =&gt; &quot;&#123;now/d&#125;-000001&quot;</span></span><br><span class="line">				<span class="comment">#index =&gt; &quot;nginx-log-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;squid&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;netscaler&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">	  		index =&gt; <span class="string">&quot;ns-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">	  	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;idrac&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">        	index =&gt; <span class="string">&quot;idrac-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;pure&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;pure-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;vmware&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;vmware-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">#  stdout &#123; codec =&gt; rubydebug &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>$LS_HOME/conf.d/output.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">	elasticsearch &#123;</span><br><span class="line">    	user =&gt; <span class="string">&quot;$&#123;LW_USER&#125;&quot;</span></span><br><span class="line">    	password =&gt; <span class="string">&quot;$&#123;LW_PWD&#125;&quot;</span></span><br><span class="line">    	ssl =&gt; <span class="literal">true</span></span><br><span class="line">    	cacert =&gt; <span class="string">&quot;/etc/logstash/elasticsearch-ca.pem&quot;</span></span><br><span class="line">    	hosts =&gt; <span class="string">&quot;http://localhost:9200&quot;</span></span><br><span class="line">    	<span class="keyword">if</span> <span class="string">&quot;nginx&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			<span class="keyword">if</span> [<span class="variable">@metadata</span>][pipeline] &#123;</span><br><span class="line">				<span class="comment">#manage_template =&gt; false</span></span><br><span class="line">				index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">				pipeline =&gt; <span class="string">&quot;%&#123;[@metadata][pipeline]&#125;&quot;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				manage_template =&gt; <span class="literal">false</span></span><br><span class="line">				ilm_enabled =&gt; <span class="literal">true</span></span><br><span class="line">				ilm_rollover_alias =&gt; <span class="string">&quot;nginx-log&quot;</span></span><br><span class="line">				<span class="comment">#ilm_pattern =&gt; &quot;&#123;now/d&#125;-000001&quot;</span></span><br><span class="line">				<span class="comment">#index =&gt; &quot;nginx-log-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;squid&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;netscaler&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">	  		index =&gt; <span class="string">&quot;ns-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">	  	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;idrac&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">        	index =&gt; <span class="string">&quot;idrac-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;pure&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;pure-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;vmware&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;vmware-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">#  stdout &#123; codec =&gt; rubydebug &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="設定訪問帳號權限"><a href="#設定訪問帳號權限" class="headerlink" title="設定訪問帳號權限"></a><code>設定訪問帳號權限</code></h4><p>ES api 設定</p>
 <ul>
 <li><p>Internal Logstash User</p>

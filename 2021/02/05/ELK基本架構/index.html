@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="xG96ZoCM9Abk4Zg0V2CsjrvFzEwcEtepmC4q5rQ-7HY">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="tags: elk elastic logstash kibana &amp;#x1f4b9;ELK完全安裝手冊XXXbeat &#x3D; 事件發送裝置Logstash &#x3D; 事件處理裝置Elasticsearchs &#x3D; 搜索引擎Gafana,Kibana &#x3D; 使用者瀏覽+操作介面端配合 ELK安全性 可以得知中間每一條虛線都可以加密,且圍繞著Elasticsearch有帳密驗證事件如果不需要&#x3D;&#x3D;額外&#x3D;&#x3D;處理,可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK完全安裝手冊">
+<meta property="og:url" content="https://darkfriday.github.io/2021/02/05/ELK%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B/index.html">
+<meta property="og:site_name" content="Darkfriday&#39;s Blog">
+<meta property="og:description" content="tags: elk elastic logstash kibana &amp;#x1f4b9;ELK完全安裝手冊XXXbeat &#x3D; 事件發送裝置Logstash &#x3D; 事件處理裝置Elasticsearchs &#x3D; 搜索引擎Gafana,Kibana &#x3D; 使用者瀏覽+操作介面端配合 ELK安全性 可以得知中間每一條虛線都可以加密,且圍繞著Elasticsearch有帳密驗證事件如果不需要&#x3D;&#x3D;額外&#x3D;&#x3D;處理,可以">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-05T08:14:51.000Z">
+<meta property="article:modified_time" content="2021-02-05T08:16:58.162Z">
+<meta property="article:author" content="Nap_Huang">
+<meta property="article:tag" content="EL8">
+<meta property="article:tag" content="ELK">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://darkfriday.github.io/2021/02/05/ELK%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>ELK完全安裝手冊 | Darkfriday's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90003537-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-90003537-1');
+      }
+    </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Darkfriday's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Sharing about tech & sport etc..</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-elk-elastic-logstash-kibana"><span class="nav-text">tags: elk elastic logstash kibana</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x1f4b9-ELK%E5%AE%8C%E5%85%A8%E5%AE%89%E8%A3%9D%E6%89%8B%E5%86%8A"><span class="nav-text"> &amp;#x1f4b9;ELK完全安裝手冊</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic-Stack-License"><span class="nav-text">Elastic Stack License</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E9%97%9C%E7%89%88%E6%9C%AC%E5%B7%AE%E7%95%B0"><span class="nav-text">有關版本差異</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Elasticsearchs"><span class="nav-text">安裝 Elasticsearchs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%B5%B1%E8%A8%AD%E5%AE%9A"><span class="nav-text">系統設定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Disable-swapping"><span class="nav-text">Disable swapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Increase-file-descriptors"><span class="nav-text">Increase file descriptors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ensure-sufficient-virtual-memory"><span class="nav-text">Ensure sufficient virtual memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ensure-sufficient-threads"><span class="nav-text">Ensure sufficient threads</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elasticsearch-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5"><span class="nav-text">Elasticsearch 基礎概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cluster"><span class="nav-text">Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node"><span class="nav-text">Node</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Index"><span class="nav-text">Index</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Document"><span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shard"><span class="nav-text">Shard</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Replica"><span class="nav-text">Replica</span></a></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Nap_Huang</p>
+  <div class="site-description" itemprop="description">只有兩樣不會，這樣不會那樣也不會</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2RhcmtmcmlkYXk=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;darkfriday"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOjEzdGhkYXJrZnJpZGF5QGdtYWlsLmNvbQ==" title="E-Mail → mailto:13thdarkfriday@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpoX1RX"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://darkfriday.github.io/2021/02/05/ELK%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Nap_Huang">
+      <meta itemprop="description" content="只有兩樣不會，這樣不會那樣也不會">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Darkfriday's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ELK完全安裝手冊
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-02-05 16:14:51 / Modified: 16:16:58" itemprop="dateCreated datePublished" datetime="2021-02-05T16:14:51+08:00">2021-02-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/tech/" itemprop="url" rel="index"><span itemprop="name">tech</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h6 id="tags-elk-elastic-logstash-kibana"><a href="#tags-elk-elastic-logstash-kibana" class="headerlink" title="tags: elk elastic logstash kibana"></a>tags: <code>elk</code> <code>elastic</code> <code>logstash</code> <code>kibana</code></h6><h1 id="x1f4b9-ELK完全安裝手冊"><a href="#x1f4b9-ELK完全安裝手冊" class="headerlink" title=" &#x1f4b9;ELK完全安裝手冊"></a><center> <span class="github-emoji" alias="chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4b9.png?v8">&#x1f4b9;</span>ELK完全安裝手冊</center></h1><p>XXXbeat = <code>事件發送裝置</code><br>Logstash = <code>事件處理裝置</code><br>Elasticsearchs = <code>搜索引擎</code><br>Gafana,Kibana = <code>使用者瀏覽+操作介面端</code><br>配合 <span class="exturl" data-url="aHR0cDovLzEwLjEwLjEwLjI0NDozMDAwL1VuenpiUXQ3UVBHSDB3UWRCc2NNbXc=">ELK安全性<i class="fa fa-external-link-alt"></i></span> 可以得知中間每一條虛線都可以加密,且圍繞著Elasticsearch有帳密驗證<br>事件如果不需要==額外==處理,可以直接跳過事件處理裝置直接送到搜索引擎</p>
+<hr>
+<p><font color="red">紅色GET</font><br><font color="blue">藍色POST</font></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">digraph ELK &#123; </span><br><span class="line">fontsize &#x3D; 14;</span><br><span class="line">nodesep&#x3D;0.6</span><br><span class="line">edge [color&#x3D;Blue,style&#x3D;dashed]</span><br><span class="line">node [fontname&#x3D;Courier,shape&#x3D;record,color&#x3D;&quot;skyblue&quot;, style&#x3D;&quot;filled&quot;]</span><br><span class="line"></span><br><span class="line">subgraph cluster_shiper&#123;</span><br><span class="line">label&#x3D;&quot;線上機器&#39;s&quot;;</span><br><span class="line">bgcolor&#x3D;&quot;mintcream&quot;;</span><br><span class="line">Filebeat;</span><br><span class="line">Auditbeat</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">subgraph cluster_es&#123;</span><br><span class="line">label&#x3D;&quot;ES_clusters&quot;;</span><br><span class="line">bgcolor&#x3D;&quot;mintcream&quot;;</span><br><span class="line">Elasticsearchs</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Elasticsearchs[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;yellow&quot;]</span><br><span class="line">Browser[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;green&quot;]</span><br><span class="line">Logstash[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;orange&quot;]</span><br><span class="line">Kibana[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;red&quot;]</span><br><span class="line">Gafana[style&#x3D;&quot;filled&quot;,fillcolor&#x3D;&quot;brown&quot;]</span><br><span class="line"></span><br><span class="line">Elasticsearchs-&gt;Elasticsearchs[color&#x3D;&quot;green&quot;][label&#x3D;&quot;9300&quot;];</span><br><span class="line">Logstash-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Filebeat-&gt;Logstash[label&#x3D;&quot;5044&quot;];</span><br><span class="line">syslog_client-&gt;Logstash[label&#x3D;&quot;5041-5045&quot;];    </span><br><span class="line">Filebeat-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Auditbeat-&gt;Elasticsearchs[label&#x3D;&quot;9200&quot;];</span><br><span class="line">Kibana-&gt;Elasticsearchs;</span><br><span class="line">Elasticsearchs-&gt;Kibana[color&#x3D;&quot;red&quot;][label&#x3D;&quot;RESTful 9200&quot;];</span><br><span class="line">Elasticsearchs-&gt;Gafana[color&#x3D;&quot;red&quot;][label&#x3D;&quot;9200&quot;]</span><br><span class="line">Kibana-&gt;Browser[color&#x3D;&quot;red&quot;][label&#x3D;&quot;https 5061&quot;]</span><br><span class="line">Gafana-&gt;Browser[color&#x3D;&quot;red&quot;][label&#x3D;&quot;http 3000&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<a id="more"></a>
+
+<h3 id="Elastic-Stack-License"><a href="#Elastic-Stack-License" class="headerlink" title="Elastic Stack License"></a>Elastic Stack License</h3><p>ELK7版以後內建有基本的安全性設定及部分額外功能，額外功能都需綁定開啟安全性。因此強烈推薦開啟安全性設定。<br>文章內使用到的為Basic版開啟認證系統節點中通訊加密採用 SSL</p>
+<h4 id="有關版本差異"><a href="#有關版本差異" class="headerlink" title="有關版本差異"></a>有關版本差異</h4><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9zdWJzY3JpcHRpb25z">X-Packs<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="安裝-Elasticsearchs"><a href="#安裝-Elasticsearchs" class="headerlink" title="安裝 Elasticsearchs"></a>安裝 Elasticsearchs</h3><table>
+<thead>
+<tr>
+<th>IP1</th>
+<th>IP2</th>
+<th>Http Port（ES HTTP API）</th>
+<th>Transport Port（ES叢集内部通信用）</th>
+<th>nodename</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.10.9.247</td>
+<td>10.20.30.247</td>
+<td>9200</td>
+<td>9300</td>
+<td>tribe-node</td>
+</tr>
+<tr>
+<td>10.10.9.47</td>
+<td>10.20.30.47</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-1</td>
+</tr>
+<tr>
+<td>10.10.9.48</td>
+<td>10.20.30.48</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-2</td>
+</tr>
+<tr>
+<td>10.10.9.49</td>
+<td>10.20.30.49</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-3</td>
+</tr>
+<tr>
+<td>10.10.9.50</td>
+<td>10.20.30.50</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-4</td>
+</tr>
+<tr>
+<td>10.10.9.51</td>
+<td>10.20.30.51</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-5</td>
+</tr>
+<tr>
+<td>10.10.9.52</td>
+<td>10.20.30.52</td>
+<td>9200</td>
+<td>9300</td>
+<td>node-6</td>
+</tr>
+</tbody></table>
+<ul>
+<li><input disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWMvYW5zaWJsZS1lbGFzdGljc2VhcmNo">ansible<i class="fa fa-external-link-alt"></i></span></li>
+<li><input disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L2RvY2tlci5odG1s">docker<i class="fa fa-external-link-alt"></i></span></li>
+<li><input checked="" disabled="" type="checkbox"> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3JwbS5odG1s">dnf-RPM<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p>下載匯入PGP Key</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">rpm --<span class="keyword">import</span> <span class="attr">https:</span><span class="comment">//artifacts.elastic.co/GPG-KEY-elasticsearch</span></span><br></pre></td></tr></table></figure>
+
+<p>新增elastic stack repo <code>/etc/yum.repos.d/elastic.repo</code></p>
+<figure class="highlight plain"><figcaption><span>/etc/yum.repos.d/</span></figcaption><table><tr><td class="code"><pre><span class="line">[elasticsearch]</span><br><span class="line">name&#x3D;Elasticsearch repository for 7.x packages</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;packages&#x2F;7.x&#x2F;yum</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;artifacts.elastic.co&#x2F;GPG-KEY-elasticsearch</span><br><span class="line">enabled&#x3D;0</span><br><span class="line">autorefresh&#x3D;1</span><br><span class="line">type&#x3D;rpm-md</span><br></pre></td></tr></table></figure>
+
+<p>啟用repo</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dnf install --enablerepo=elasticsearch elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>systemd enable</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /bin/systemctl daemon-reload</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> elasticsearch.service</span><br><span class="line">sudo systemctl start elasticsearch.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="系統設定"><a href="#系統設定" class="headerlink" title="系統設定"></a>系統設定</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3N5c3RlbS1jb25maWcuaHRtbA==">https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="Disable-swapping"><a href="#Disable-swapping" class="headerlink" title="Disable swapping"></a>Disable swapping</h4><ul>
+<li>Disable all swap files   <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo swapoff -a</span><br><span class="line">sudo vim /etc/fstab <span class="comment">#掉swap mount的部分</span></span><br></pre></td></tr></table></figure></li>
+<li>Enable bootstrap.memory_lock in <code>elasticsearch.yml</code>  <figure class="highlight yaml"><figcaption><span>elasticsearch.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line"># allow user &#39;elasticsearch&#39; mlockall</span><br><span class="line">elasticsearch soft memlock unlimited</span><br><span class="line">elasticsearch hard memlock unlimited</span><br></pre></td></tr></table></figure>
+<h4 id="Increase-file-descriptors"><a href="#Increase-file-descriptors" class="headerlink" title="Increase file descriptors"></a>Increase file descriptors</h4></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">elasticsearch  -  nofile  65535</span><br></pre></td></tr></table></figure>
+<h4 id="Ensure-sufficient-virtual-memory"><a href="#Ensure-sufficient-virtual-memory" class="headerlink" title="Ensure sufficient virtual memory"></a>Ensure sufficient virtual memory</h4></li>
+<li>sysctl <code>/etc/sysctl.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/sysctl.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">vm.swappiness&#x3D;1</span><br><span class="line">vm.max_map_count&#x3D;262144</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<h4 id="Ensure-sufficient-threads"><a href="#Ensure-sufficient-threads" class="headerlink" title="Ensure sufficient threads"></a>Ensure sufficient threads</h4></li>
+<li>ulimits <code>/etc/security/limits.conf</code>  <figure class="highlight plain"><figcaption><span>/etc/security/limits.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">elasticsearch  -  nproc  4096</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Elasticsearch-基礎概念"><a href="#Elasticsearch-基礎概念" class="headerlink" title="Elasticsearch 基礎概念"></a>Elasticsearch 基礎概念</h3><h4 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h4><p>叢集 由一台或多台的Elasticsearch 節點(Node)組成</p>
+<h4 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h4><p>節點 即為Elasticsearch的服務本身 同一台機器上啟動兩個Elasticsearch服務(docker or 不同port) 就是兩個node</p>
+<h4 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h4><p>索引 具有相同結構的文檔集合體 類似關連式database本身 每一個節點內可以有多個索引</p>
+<h4 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h4><p>文檔 Elasticsearch中最小的儲存單元 JSON數據格式 複數Document組合而成索引 文檔類似關聯式database中表內一筆記錄。</p>
+<h4 id="Shard"><a href="#Shard" class="headerlink" title="Shard"></a>Shard</h4><p>分片又稱Primary shard<br>單個索引切分成多個shard，分佈在多台Node節點上存儲。可以利用shard很好的橫向擴展，以存儲更多的數據，同時shard分佈在多台node上，可以提升集群整體的吞吐量和性能。在創建索引的時候可以直接指定分片的數量即可，一旦指定就不能再修改了。</p>
+<h4 id="Replica"><a href="#Replica" class="headerlink" title="Replica"></a>Replica</h4><p>分片副本又稱Replica shard<br>跟主shard的內容一樣 一個shard可以有一個或者多個replica 作用是同主分片一同分散在各節點內以提高冗餘並增加讀搜尋速度(類似raid的概念)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/EL8/" rel="tag"><i class="fa fa-tag"></i> EL8</a>
+              <a href="/tags/ELK/" rel="tag"><i class="fa fa-tag"></i> ELK</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/18/Elasticsearch-API-%E7%AF%84%E4%BE%8B/" rel="prev" title="Elasticsearch API 範例">
+                  <i class="fa fa-chevron-left"></i> Elasticsearch API 範例
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-napster"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nap_Huang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">19k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">17 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>

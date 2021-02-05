@@ -22,10 +22,9 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"darkfriday.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定tags: ELK, beats, security , SSL , TLS0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitor">
+<meta name="description" content="&amp;#x1f510;Elasticsearch、Kibana、Beats 和 Logstash 的安全設定tags: ELK, beats, security , SSL , TLS0. 了解ELK_Xpack &amp; 安全模式 Xpack X-Pack is an Elastic Stack extension that provides security, alerting, monitor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch、Kibana、Beats 和 Logstash 的安全設定">
 <meta property="og:url" content="https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/index.html">
@@ -55,8 +54,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 | Darkfriday's Blog</title>
+<title>Elasticsearch、Kibana、Beats 和 Logstash 的安全設定 | Darkfriday's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90003537-1"></script>
     <script>
@@ -67,9 +65,6 @@
         gtag('config', 'UA-90003537-1');
       }
     </script>
-
-
-
 
 
 
@@ -170,8 +165,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -231,14 +225,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -285,9 +279,7 @@
 
 
     <div class="main-inner post posts-expand">
-      
 
-      
 
   
 
@@ -440,7 +432,7 @@
 
 </li>
 </ul>
-<figure class="highlight ruby"><figcaption><span>$LS_HOME/conf.d/output.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">	elasticsearch &#123;</span><br><span class="line">    	user =&gt; <span class="string">&quot;$&#123;LW_USER&#125;&quot;</span></span><br><span class="line">    	password =&gt; <span class="string">&quot;$&#123;LW_PWD&#125;&quot;</span></span><br><span class="line">    	ssl =&gt; <span class="literal">true</span></span><br><span class="line">    	cacert =&gt; <span class="string">&quot;/etc/logstash/elasticsearch-ca.pem&quot;</span></span><br><span class="line">    	hosts =&gt; <span class="string">&quot;http://localhost:9200&quot;</span></span><br><span class="line">    	<span class="keyword">if</span> <span class="string">&quot;nginx&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			<span class="keyword">if</span> [@metadata][pipeline] &#123;</span><br><span class="line">				<span class="comment">#manage_template =&gt; false</span></span><br><span class="line">				index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">				pipeline =&gt; <span class="string">&quot;%&#123;[@metadata][pipeline]&#125;&quot;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				manage_template =&gt; <span class="literal">false</span></span><br><span class="line">				ilm_enabled =&gt; <span class="literal">true</span></span><br><span class="line">				ilm_rollover_alias =&gt; <span class="string">&quot;nginx-log&quot;</span></span><br><span class="line">				<span class="comment">#ilm_pattern =&gt; &quot;&#123;now/d&#125;-000001&quot;</span></span><br><span class="line">				<span class="comment">#index =&gt; &quot;nginx-log-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;squid&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;netscaler&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">	  		index =&gt; <span class="string">&quot;ns-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">	  	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;idrac&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">        	index =&gt; <span class="string">&quot;idrac-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;pure&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;pure-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;vmware&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;vmware-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">#  stdout &#123; codec =&gt; rubydebug &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>$LS_HOME/conf.d/output.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">	elasticsearch &#123;</span><br><span class="line">    	user =&gt; <span class="string">&quot;$&#123;LW_USER&#125;&quot;</span></span><br><span class="line">    	password =&gt; <span class="string">&quot;$&#123;LW_PWD&#125;&quot;</span></span><br><span class="line">    	ssl =&gt; <span class="literal">true</span></span><br><span class="line">    	cacert =&gt; <span class="string">&quot;/etc/logstash/elasticsearch-ca.pem&quot;</span></span><br><span class="line">    	hosts =&gt; <span class="string">&quot;http://localhost:9200&quot;</span></span><br><span class="line">    	<span class="keyword">if</span> <span class="string">&quot;nginx&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			<span class="keyword">if</span> [<span class="variable">@metadata</span>][pipeline] &#123;</span><br><span class="line">				<span class="comment">#manage_template =&gt; false</span></span><br><span class="line">				index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">				pipeline =&gt; <span class="string">&quot;%&#123;[@metadata][pipeline]&#125;&quot;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				manage_template =&gt; <span class="literal">false</span></span><br><span class="line">				ilm_enabled =&gt; <span class="literal">true</span></span><br><span class="line">				ilm_rollover_alias =&gt; <span class="string">&quot;nginx-log&quot;</span></span><br><span class="line">				<span class="comment">#ilm_pattern =&gt; &quot;&#123;now/d&#125;-000001&quot;</span></span><br><span class="line">				<span class="comment">#index =&gt; &quot;nginx-log-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;squid&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;%&#123;[@metadata][beat]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;netscaler&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">	  		index =&gt; <span class="string">&quot;ns-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">	  	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;idrac&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">        	index =&gt; <span class="string">&quot;idrac-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;pure&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">			index =&gt; <span class="string">&quot;pure-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">&quot;vmware&quot;</span> <span class="keyword">in</span> [tags] &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;vmware-syslog-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		index =&gt; <span class="string">&quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span></span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">#  stdout &#123; codec =&gt; rubydebug &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="設定訪問帳號權限"><a href="#設定訪問帳號權限" class="headerlink" title="設定訪問帳號權限"></a><code>設定訪問帳號權限</code></h4><p>ES api 設定</p>
 <ul>
 <li><p>Internal Logstash User</p>
@@ -498,14 +490,6 @@
 
 
 
-      
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -528,20 +512,16 @@
     });
   }
 </script>
-
-    </div>
+</div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      
 
-      
 
 <div class="copyright">
-  
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fab fa-napster"></i>
   </span>
@@ -552,13 +532,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">15k</span>
+    <span title="Symbols count total">19k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">13 mins.</span>
+    <span title="Reading time total">17 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span>
@@ -573,19 +553,7 @@
 
   
 
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
+<script src="/js/local-search.js"></script>
 
 
 
@@ -598,29 +566,6 @@
 
 
 
-
-
-
-  
-
-  
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css">
-
-<script>
-NexT.utils.loadComments('#disqus_thread', () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', () => {
-    window.dsqjs = new DisqusJS({
-      api       : '' || 'https://disqus.com/api/',
-      apikey    : 'NwY7NPvSlt4vi4d2z8NpIfzu7ow5dB3WJcxfcIj6oOmTreYyuADmN7xn2NywHmhv',
-      shortname : 'darkfriday-github-io',
-      url       : "https://darkfriday.github.io/2020/11/10/Elasticsearch%E3%80%81Kibana%E3%80%81Beats-%E5%92%8C-Logstash-%E7%9A%84%E5%AE%89%E5%85%A8%E8%A8%AD%E5%AE%9A/",
-      identifier: "2020/11/10/Elasticsearch、Kibana、Beats-和-Logstash-的安全設定/",
-      title     : "Elasticsearch、Kibana、Beats 和 Logstash 的安全設定",
-    });
-  }, window.DisqusJS);
-});
-</script>
 
 </body>
 </html>
